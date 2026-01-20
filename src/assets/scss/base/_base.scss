@@ -1,0 +1,23 @@
+@use "@scss/abstract" as ab;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: ab.$font-base;
+  font-size: 16px;
+  line-height: 1.5;
+  color: ab.$color-text;
+  background-color: ab.$color-bg;
+  -webkit-text-size-adjust: 100%;
+}
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}

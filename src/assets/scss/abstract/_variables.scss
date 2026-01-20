@@ -1,0 +1,54 @@
+// color
+$color-primary: #e50914;
+$color-text: #000;
+$color-bg: #fff;
+$color-toggle: #2d2d2d;
+$color-btn: #80808066;
+
+// font
+$font-base: "NetflixSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+$font-heading: "Montserrat", "Pretendard", sans-serif;
+
+// spacing
+$space-4: 4px;
+$space-8: 8px;
+$space-12: 12px;
+$space-16: 16px;
+$space-24: 24px;
+$space-32: 32px;
+
+// z-index
+$z-base: 1;
+$z-header: 100;
+$z-dropdown: 200;
+$z-sticky: 300;
+$z-overlay: 900;
+$z-modal: 1000;
+$z-toast: 1100;
+$z-tooltip: 1200;
+
+// breakpoint
+$bp-mobile: 375px;
+$bp-tablet: 768px;
+$bp-desktop: 1280px;
+
+// border
+$border-color: rgba(128, 128, 128, 0.7);
+$border-radius: 4px;
+$border-background: rgba(22, 22, 22, 0.7);
+
+// btn
+$btn-bg: #404358;
+
+// bg
+$bg-gradient-deg: 149deg;
+$bg-gradient-start: #192247;
+$bg-gradient-end: 96.86%;
+$bg-toggel: #80808066;
+
+// hover
+$hover-btn-slide: rgba(255, 255, 255, 0.2);
+$hover-bg-btn: rgb(193, 17, 25);
+$hover-bg-toggle: rgb(65, 65, 65);
+$hover-scale: 1.05;

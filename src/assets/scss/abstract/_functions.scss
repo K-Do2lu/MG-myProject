@@ -1,0 +1,14 @@
+@use "sass:math"; //Sass에 내장된 math 라이브러리를 가져오는 것
+
+// clamp
+@mixin clamp-size($property, $min, $max, $vp-min: 375px, $vp-max: 1440px) {
+  @if math.unit($min) != "px" or math.unit($max) != "px" {
+    @error "clamp-size mixin에는 px 단위를 사용하세요.";
+  }
+
+  $slope: math.div($max - $min, $vp-max - $vp-min); // slope 계산 (공식 1.)
+  $intercept: $min - ($slope * $vp-min); // intercept 계산 (공식 2.)
+
+  #{$property}: clamp(#{$min}, 2vw, #{$max});
+  //   #{$property}: clamp(#{$min}, #{$slope * 100}vw + #{$intercept}, #{$max});
+}

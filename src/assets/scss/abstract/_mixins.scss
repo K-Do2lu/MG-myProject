@@ -1,0 +1,74 @@
+@use "./variables" as vars;
+
+// font
+@mixin font-face($name, $file, $weight: 500, $style: normal) {
+  @font-face {
+    font-family: $name;
+    src: url("/assets/fonts/NetflixSans-Bold.otf"),
+      url("/assets/fonts/NetflixSans-Medium.otf"),
+      url("/assets/fonts/NetflixSans-Regular.otf"),
+      url("/assets/fonts/NetflixSans-Light.otf");
+
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+// 말줄임
+@mixin ellipsis($line: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if $line ==1 {
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+  }
+}
+
+// media quary
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: vars.$bp-mobile) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: vars.$bp-tablet) {
+      @content;
+    }
+  }
+}
+
+// layout
+@mixin f-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin fi-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin f-align($align, $gap: null) {
+  display: flex;
+  align-items: $align;
+  @if $gap {
+    gap: $gap;
+  }
+}
+@mixin flex($display, $aline: null, $justify: null, $gap: null) {
+  display: $display;
+
+  @if $aline != null {
+    align-items: $aline;
+  }
+  @if $justify != null {
+    justify-content: $justify;
+  }
+  @if $gap != null {
+    gap: $gap;
+  }
+}

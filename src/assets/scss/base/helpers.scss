@@ -1,0 +1,40 @@
+// text
+.txt-center {
+  text-align: center !important;
+}
+.txt-right {
+  text-align: right !important;
+}
+.fw-bold {
+  font-weight: 700 !important;
+}
+// spacing
+.mt-10 {
+  margin-top: 10px !important;
+}
+// display/flex
+.d-none {
+  display: none !important;
+}
+.d-block {
+  display: block !important;
+}
+.flex {
+  display: flex !important;
+}
+.f-center {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+// visibility/접근성
+.is-hidden {
+  display: none !important;
+}
+.is-invisible {
+  visibility: hidden !important;
+}
+// 디버깅
+.debug * {
+  outline: 1px solid rgba(255, 0, 0, 0.2);
+}

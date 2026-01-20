@@ -1,0 +1,18 @@
+@use "@scss/abstract" as ab;
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 80px;
+  color: ab.$color-text;
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    padding: 0 32px;
+  }
+
+  @media (min-width: 375px) {
+    padding: 0 24px;
+  }
+}

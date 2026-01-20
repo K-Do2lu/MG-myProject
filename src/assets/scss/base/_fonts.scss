@@ -1,0 +1,6 @@
+@use "@scss/abstract" as ab;
+
+@include ab.font-face("NetflixSans", "NetflixSans-Bold", 700);
+@include ab.font-face("NetflixSans", "NetflixSans-Medium", 600);
+@include ab.font-face("NetflixSans", "NetflixSans-Regular", 500);
+@include ab.font-face("NetflixSans", "NetflixSans-Light", 400);

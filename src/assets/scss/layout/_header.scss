@@ -1,0 +1,6 @@
+@use "@scss/abstract/" as ab;
+
+#header {
+  @include ab.clamp-size(font-size, 16px, 40px);
+  color: blue;
+}
