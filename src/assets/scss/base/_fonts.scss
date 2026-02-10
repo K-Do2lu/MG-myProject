@@ -1,6 +1,11 @@
 @use "@scss/abstract" as ab;
 
-@include ab.font-face("NetflixSans", "NetflixSans-Bold", 700);
-@include ab.font-face("NetflixSans", "NetflixSans-Medium", 600);
-@include ab.font-face("NetflixSans", "NetflixSans-Regular", 500);
-@include ab.font-face("NetflixSans", "NetflixSans-Light", 400);
+@include ab.font-pre('Pretendard', 100);
+@include ab.font-pre('Pretendard', 200);
+@include ab.font-pre('Pretendard', 300);
+@include ab.font-pre('Pretendard', 400);
+@include ab.font-pre('Pretendard', 500);
+@include ab.font-pre('Pretendard', 600);
+@include ab.font-pre('Pretendard', 700);
+@include ab.font-pre('Pretendard', 800);
+@include ab.font-pre('Pretendard', 900);

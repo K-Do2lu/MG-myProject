@@ -6,9 +6,20 @@ $color-toggle: #2d2d2d;
 $color-btn: #80808066;
 
 // font
-$font-base: "NetflixSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-  "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
-$font-heading: "Montserrat", "Pretendard", sans-serif;
+$pretendard-map: (
+  100: 'Pretendard-Thin',
+  200: 'Pretendard-ExtraLight',
+  300: 'Pretendard-Light',
+  400: 'Pretendard-Regular',
+  500: 'Pretendard-Medium',
+  600: 'Pretendard-SemiBold',
+  700: 'Pretendard-Bold',
+  800: 'Pretendard-ExtraBold',
+  900: 'Pretendard-Black'
+);
+$font-base: "Pretendard", sans-serif;
+$font-heading: "Pretendard", "Montserrat", sans-serif;
+
 
 // spacing
 $space-4: 4px;
@@ -52,3 +63,4 @@ $hover-btn-slide: rgba(255, 255, 255, 0.2);
 $hover-bg-btn: rgb(193, 17, 25);
 $hover-bg-toggle: rgb(65, 65, 65);
 $hover-scale: 1.05;
+

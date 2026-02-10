@@ -1,19 +1,25 @@
+@use "sass:math"; //Sass에 내장된 math 라이브러리를 가져오는 것
 @use "./variables" as vars;
 
 // font
-@mixin font-face($name, $file, $weight: 500, $style: normal) {
+@mixin font-pre($name, $weight) {
+  $file: map.get(vars.$pretendard-map, $weight);
+
+  @if $file == null {
+    @error '지원하지 않는 font-weight: #{$weight}';
+  }
+
   @font-face {
     font-family: $name;
-    src: url("/assets/fonts/NetflixSans-Bold.otf"),
-      url("/assets/fonts/NetflixSans-Medium.otf"),
-      url("/assets/fonts/NetflixSans-Regular.otf"),
-      url("/assets/fonts/NetflixSans-Light.otf");
-
+    src: url('../../fonts/#{$file}.otf') format('opentype');
     font-weight: $weight;
     font-style: normal;
     font-display: swap;
   }
 }
+
+
+
 
 // 말줄임
 @mixin ellipsis($line: 1) {
@@ -71,4 +77,16 @@
   @if $gap != null {
     gap: $gap;
   }
+}
+
+// attribute
+@mixin height($height, $max-height, $min-height){
+  height: $height;
+  max-height: $max-height;
+  min-height: $min-height;
+}
+@mixin width($width, $max-width, $min-width){
+  width: $width;
+  max-width: $max-width;
+  min-width: $min-width;
 }

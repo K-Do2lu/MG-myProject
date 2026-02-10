@@ -1,10 +1,22 @@
 <template>
   <header id="header" class="header">
     <h1 class="logo">
-      <a href="/">LOGO</a>
+      <a href="/src/assets/images/logo_mgds.png">logo</a>
     </h1>
 
-    <button
+    <nav>
+      <ul>
+        <li>COMPANY</li>
+        <li>BUSINESS</li>
+        <li>NOTICE</li>
+        <li>RECRUIT</li>
+        <li><a href="/src/assets/images/logo_dshop"></a></li>
+      </ul>
+    </nav>
+
+
+
+    <!-- <button
       type="button"
       class="btn-menu"
       aria-controls="gnb"
@@ -19,7 +31,7 @@
         <li><a href="#">Menu 1</a></li>
         <li><a href="#">Menu 2</a></li>
       </ul>
-    </nav>
+    </nav> -->
   </header>
 </template>
 
