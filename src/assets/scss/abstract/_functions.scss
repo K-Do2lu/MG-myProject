@@ -1,14 +1,33 @@
 @use "sass:math"; //Sass에 내장된 math 라이브러리를 가져오는 것
+@use "./variables" as var;
 
-// clamp
-@mixin clamp-size($property, $min, $max, $vp-min: 375px, $vp-max: 1440px) {
+// clamp(화면 크기에 따라 폰트 크기나 여백 사이즈 조절)
+@mixin clamp-size(
+  $property,
+  $min,
+  $max,
+  $vp-min: var.$bp-mobile,
+  $vp-max: var.$bp-desktop
+  ) {
   @if math.unit($min) != "px" or math.unit($max) != "px" {
     @error "clamp-size mixin에는 px 단위를 사용하세요.";
   }
 
-  $slope: math.div($max - $min, $vp-max - $vp-min); // slope 계산 (공식 1.)
-  $intercept: $min - ($slope * $vp-min); // intercept 계산 (공식 2.)
+  // px 단위를 제거하고 숫자만 추출하여 계산 (안전함)
+  $min-val: math.div($min, 1px);
+  $max-val: math.div($max, 1px);
+  $vp-min-val: math.div($vp-min, 1px);
+  $vp-max-val: math.div($vp-max, 1px);
 
-  #{$property}: clamp(#{$min}, 2vw, #{$max});
-  //   #{$property}: clamp(#{$min}, #{$slope * 100}vw + #{$intercept}, #{$max});
+  // 가변 비율 계산(공식)
+  // (최대크기 - 최소크기) / (최대뷰포트 - 최소뷰포트트)
+  $slope: math.div($max-val - $min-val, $vp-max-val - $vp-min-val); 
+  // 기준점 계산(공식)
+  // 최소크기 - (기울기 * 최소뷰포트)
+  $intercept: $min-val - ($slope * $vp-min-val);
+
+  // 결과 출력
+  // #{$property}: clamp(#{$min}, 2vw, #{$max});
+  #{$property}: clamp(#{$min}, #{$slope * 100}vw + #{$intercept * 1px}, #{$max});
 }
+// @include('font-size', 20px, 40px);

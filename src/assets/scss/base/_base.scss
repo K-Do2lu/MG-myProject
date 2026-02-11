@@ -1,19 +1,23 @@
-@use "@scss/abstract" as ab;
-@use './fonts';
+@use "@scss/abstract" as *;
 
 * {
   -webkit-tap-highlight-color: transparent;
+}
+#app {
+  @include font-style();
+  color: $color-txt-main;
+  // 폰트 렌더링 최적화 옵션 (선택사항)
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 html {
   font-size: 16px;
   scroll-behavior: smooth;
 }
 body {
-  font-family: 'Pretendard', sans-serif;
-  font-weight: 400;
   line-height: 1.5;
-  color: ab.$color-text;
-  background-color: ab.$color-bg;
+  color: $color-txt-main;
+  background-color: $color-scale-0;
   -webkit-text-size-adjust: 100%;
 }
 button,

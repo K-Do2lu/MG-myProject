@@ -2,23 +2,10 @@
 @use "./variables" as vars;
 
 // font
-@mixin font-pre($name, $weight) {
-  $file: map.get(vars.$pretendard-map, $weight);
-
-  @if $file == null {
-    @error '지원하지 않는 font-weight: #{$weight}';
-  }
-
-  @font-face {
-    font-family: $name;
-    src: url('../../fonts/#{$file}.otf') format('opentype');
-    font-weight: $weight;
-    font-style: normal;
-    font-display: swap;
-  }
+@mixin font-style($weight: 400, $family: vars.$font-primary) {
+  font-family: $family;
+  font-weight: $weight;
 }
-
-
 
 
 // 말줄임
@@ -80,13 +67,23 @@
 }
 
 // attribute
-@mixin height($height, $max-height, $min-height){
+@mixin height($height, $max-height: null, $min-height: null){
   height: $height;
-  max-height: $max-height;
-  min-height: $min-height;
+
+  @if $max-height != null{
+    max-height: $max-height;
+  }
+  @if $max-height != null{
+    min-height: $min-height;
+  }
 }
-@mixin width($width, $max-width, $min-width){
+@mixin width($width, $max-width: null, $min-width: null){
   width: $width;
-  max-width: $max-width;
-  min-width: $min-width;
+
+  @if $max-width != null{
+    max-width: $max-width;
+  }
+  @if $max-width != null{
+    min-width: $min-width;
+  }
 }

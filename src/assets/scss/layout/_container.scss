@@ -2,17 +2,17 @@
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 80px;
-  color: ab.$color-text;
+  padding: 0 20px;
+  color: ab.$color-txt-main;
   box-sizing: border-box;
 
-  @media (min-width: 768px) {
-    padding: 0 32px;
-  }
+  // @media (min-width: 768px) {
+  //   padding: 0 32px;
+  // }
 
-  @media (min-width: 375px) {
-    padding: 0 24px;
-  }
+  // @media (min-width: 375px) {
+  //   padding: 0 20px;
+  // }
 }

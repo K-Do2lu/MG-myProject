@@ -1,25 +1,36 @@
 // color
-$color-primary: #e50914;
-$color-text: #000;
-$color-bg: #fff;
-$color-toggle: #2d2d2d;
-$color-btn: #80808066;
+$color-primary-0: #41c7f4 ;
+$color-primary-10: #0071bc ;
+
+$color-secondary-0: #52c3f1;
+$color-secondary-10: #009edb;
+$color-secondary-20: #0068b7;
+$color-secondary-30: #0b386a;
+$color-secondary-40: #8B6F4E;
+$color-secondary-50: #8A8D8F;
+
+$color-txt-main: #333;
+$color-txt-sub: #555;
+
+$color-scale-0: #fff;
+$color-scale-10: #F7F8F9;
+$color-scale-20: #F4F5F7;
+$color-scale-30: #ECEFF2;
+$color-scale-40: #DFE3E6;
+$color-scale-50: #D2D6D4;
+$color-scale-60: #B4B8BD;
+$color-scale-70: #8C9094;
+$color-scale-80: #606366;
+$color-scale-100: #000;
+
+$color-border-10:#f2f2f2;
+
 
 // font
-$pretendard-map: (
-  100: 'Pretendard-Thin',
-  200: 'Pretendard-ExtraLight',
-  300: 'Pretendard-Light',
-  400: 'Pretendard-Regular',
-  500: 'Pretendard-Medium',
-  600: 'Pretendard-SemiBold',
-  700: 'Pretendard-Bold',
-  800: 'Pretendard-ExtraBold',
-  900: 'Pretendard-Black'
-);
-$font-base: "Pretendard", sans-serif;
-$font-heading: "Pretendard", "Montserrat", sans-serif;
-
+$font-pretendard: 'Pretendard', -apple-system, sans-serif;
+$font-noto: 'Noto Sans KR', sans-serif;
+// font_기본 폰트 설정
+$font-primary: $font-pretendard;
 
 // spacing
 $space-4: 4px;
@@ -42,10 +53,10 @@ $z-tooltip: 1200;
 // breakpoint
 $bp-mobile: 375px;
 $bp-tablet: 768px;
-$bp-desktop: 1280px;
+$bp-desktop: 1400px;
 
 // border
-$border-color: rgba(128, 128, 128, 0.7);
+$border-header: #eaeaea;
 $border-radius: 4px;
 $border-background: rgba(22, 22, 22, 0.7);
 
