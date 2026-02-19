@@ -3,7 +3,7 @@ $color-primary-0: #41c7f4 ;
 $color-primary-10: #0071bc ;
 
 $color-secondary-0: #52c3f1;
-$color-secondary-10: #009edb;
+$color-secondary-10: #009edb;       
 $color-secondary-20: #0068b7;
 $color-secondary-30: #0b386a;
 $color-secondary-40: #8B6F4E;
@@ -41,6 +41,7 @@ $space-24: 24px;
 $space-32: 32px;
 
 // z-index
+$z-menu: -1;
 $z-base: 1;
 $z-header: 100;
 $z-dropdown: 200;

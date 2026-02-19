@@ -1,73 +1,212 @@
 @use "@scss/abstract/" as ab;
 
 .header {
-    position: relative;
-    @include ab.flex(flex, center, center);
-    width: 100%;
-    height: 105px;
-    @media (max-width: 1200px){height: 65px}
-    font-size: 18px;
-    border-top: 7px solid ab.$color-secondary-30;
-    // border-bottom: 1px solid ab.$border-header; -> scroll시
-    background: ab.$color-scale-0;
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .1);
+  position: relative;
+  @include ab.flex(flex, null, center, center);
+  width: 100%;
+  height: 105px;
+  @media (max-width: 1200px) { height: 65px; padding: 10px 20px; }
+  font-size: 18px;
+  border-top: 7px solid ab.$color-secondary-30;
+  background: ab.$color-scale-0;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .1);
+  z-index: 1000;
 
-    .header-cont{
-        @include ab.flex(flex, center, space-between);
-        @include ab.width(100%, 1200px);
-        height: 100%;
+  .header-cont {
+    @include ab.flex(flex, null, center, space-between);
+    @include ab.width(100%, 1200px);
+    height: 100%;
+    position: relative; // ul::after의 기준점
+  }
+
+  .logo {
+    @media (max-width: 1200px) { max-width: 160px; }
+    @include ab.clamp-size('width', 170px, 243px);
+  }
+
+  nav.gnb {
+    @include ab.flex(flex, null, stretch);
+    height: 100%;
+
+    // 호버/포커스 시 일괄 제어 (접근성 고려)
+    &:hover, &:focus-within {
+      > ul::after {
+        height: 350px; // 슬라이드 될 배경 높이
+        opacity: 1;
+        visibility: visible;
+        border-bottom: 1px solid ab.$color-scale-20;
+      }
+      .sub-menu {
+        max-height: 350px; // 배경과 동일한 높이로 확장하여 '한 몸' 구현
+        opacity: 1;
+        visibility: visible;
+        padding: 20px 0;
+      }
     }
 
-    .logo{
-        @include ab.clamp-size('width', 170px, 243px);
-    }
+    > ul {
+      @include ab.flex(flex, null, center, center);
+      height: 100%;
 
-    nav{
-        height: 100%;
+      // 배경판 ::after
+      &::after {
+        content: '';
+        position: absolute;
+        top: 99px; // 헤더 높이 직후부터 시작
+        @media (max-width: 1200px) { top: 59px }
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 0; // 초기 높이 0
+        background: ab.$color-scale-0;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease-in-out; // 슬라이드 속도
+        z-index: -1;
+      }
 
-        > ul{
-        @include ab.flex(flex);
+      > li {
         height: 100%;
-        .logo-dshop{
-            img{
-            width: 110px;
-            }
+        position: relative;
+
+        &:not(.logo-dshop) {
+          a.router-link-active, a:hover { color: ab.$color-secondary-30; }
+          > a { height: 100%; padding: 0 36px; }
         }
-        > li{
-            padding: 0 36px;
-            a{
-            @include ab.flex(flex, center, center);
-            width: 100%;
-            height: 100%;
-                &:not(.sub-menu a){
-                border-bottom: 2px solid transparent;
-                &:hover{
-                border-bottom: 2px solid ab.$color-secondary-30;
-                }
-                }
+
+        a { @include ab.flex(flex, null, center); }
+
+        // 서브메뉴 (글자 레이어)
+        .sub-menu {
+          position: absolute;
+          top: 105px;
+          @media (max-width: 1200px) { top: 65px }
+          left: 0;
+          width: 100%;
+          max-height: 0; // 배경과 함께 늘어날 그릇
+          opacity: 0;
+          visibility: hidden;
+          overflow: hidden; // 높이가 0일 때 글자 숨김
+          transition: all 0.4s ease-in-out; // ::after와 동일한 타이밍
+          z-index: 10;
+
+          li {
+            font-size: 16px;
+            color: ab.$color-scale-60;
+            padding: 8px 0;
+            a {
+              display: inline-block;
+              width: 100%;
+              text-align: center;
+              padding: 0;
             }
-
-                //   sub-menu
-                .sub-menu{
-                    display: none;
-                }
-            }  
-
-            &:hover::before{
-                content: "";
-                position: absolute;
-                top: 99px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 100vw;
-                height: 300px;
-                background: #aaa;
-                z-index: -1;
-
-                .sub-menu{
-                    display: block;
-                }
-            }
+          }
         }
+
+        &.logo-dshop {
+          @include ab.flex(flex, null, center);
+          max-width: 110px;
+          margin-left: 20px;
+        }
+      }
     }
+  }
+
+  .btn-menu {
+    display: none;
+  }
+  
+  @media screen and (max-width: 1200px){
+  
+    .btn-menu {
+      display: block;
+      position: relative;
+      top: 10px;
+      width: 30px;
+      height: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1100;
+  
+      span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: ab.$color-secondary-30;
+        transition: all .3s ease;
+      }
+  
+      span:nth-child(1){ top: 0; }
+      span:nth-child(2){ top: 10px; }
+      // span:nth-child(3){ bottom: 0; }
+  
+      &.is-open {
+        span:nth-child(1){
+          transform: rotate(45deg);
+          top: 20px;
+        }
+        span:nth-child(2){
+          opacity: 0;
+        }
+        span:nth-child(3){
+          transform: rotate(-45deg);
+          bottom: 21px;
+        }
+      }
+    }
+  
+    .gnb {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: ab.$color-scale-0;
+      transition: right .35s ease;
+      flex-direction: column;
+      padding-top: 65px;
+      z-index: 1000;
+  
+      &.is-mobile-open {
+        right: 0;
+      }
+  
+      > ul {
+        flex-direction: column;
+        height: auto;
+  
+        &::after { display: none; }
+  
+        > li {
+          width: 100%;
+          height: auto;
+  
+          > a {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+          }
+  
+          .sub-menu {
+            position: static;
+            max-height: none;
+            opacity: 1;
+            visibility: visible;
+            padding: 0 20px 10px;
+          }
+        }
+      }
+    }
+  
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.4);
+      z-index: 900;
+    }
+  }
+
 }
+

@@ -52,9 +52,12 @@
     gap: $gap;
   }
 }
-@mixin flex($display, $aline: null, $justify: null, $gap: null) {
+@mixin flex($display, $direction:null, $aline: null, $justify: null, $gap: null) {
   display: $display;
 
+  @if $direction != null {
+    flex-direction: $direction;
+  } 
   @if $aline != null {
     align-items: $aline;
   }
