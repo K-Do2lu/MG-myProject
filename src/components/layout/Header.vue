@@ -102,3 +102,5 @@ const toggleMenu = () => {
   document.body.style.overflow = isMobileMenu.value ? "hidden" : "";
 }
 </script>
+
+<style scoped></style>
