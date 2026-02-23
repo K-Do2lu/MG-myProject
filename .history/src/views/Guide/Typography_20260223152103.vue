@@ -1,0 +1,35 @@
+<template>
+    <h1>Typography</h1>
+    <section>
+        <div class="cont">
+            <div class="bx">
+                <h2><em>Header</em> Fix</h2>
+                <div>18px</div>
+            </div>
+            <div class="bx">
+                <h2><em>Footer</em> PC (MO)</h2>
+                <div>16px (14px) / 15px (13.5px)</div>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="bx">
+                <h2><em>subTitle, Info</em> PC (MO)</h2>
+                <div>18px (16px)</div>
+            </div>
+            <div class="bx">
+                <h2><em>subTitle2, Info2<</em> PC (MO)</h2>
+                <div>20px[Fix], 22px[Fix], 16px (14px)</div>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="bx">
+                <h2><em>subTitle, Info</em> PC (MO)</h2>
+                <div>18px (16px)</div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script setup></script>
+
+<style lang="scss" scoped></style>

@@ -1,0 +1,56 @@
+// Input
+.form-field{
+    // 컨테이너너
+    display: block;
+    // width: 100%; 부모에 맞춤 (선택)
+}
+
+.form-field{
+    &__label{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        cursor: pointer;
+    }
+}
+
+
+.form-input{
+    // 인풋 박스 (테두리, 높이)
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 0 16px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #fff;
+
+    &__icon{
+        // 아이콘 영역
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    
+        // input과의 간격
+        &--prefix{margin-right: 8px;}
+        &--suffix{margin-left: 8px;}
+    }
+    &__control{
+        // 실제 input
+        flex: 1;
+        min-width: 0;
+        padding: 12px 0;
+        border: none;
+        font-size: 16px;
+        color: #333;
+        background: transparent;
+    
+        &:focus{outline: none;}
+        &::placeholder{color: #999;}
+    }
+
+    &:focus-within{border-color: #0071bc; box-shadow: 0 0 0 2px rgba(0, 113, 188, 0.2);}
+    &:pl
+}
+
+

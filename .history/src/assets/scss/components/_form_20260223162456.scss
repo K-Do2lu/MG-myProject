@@ -1,0 +1,9 @@
+// Input
+
+.form-field__label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    // label 텍스트와 input이 세로 배치
+  }

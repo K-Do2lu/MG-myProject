@@ -1,0 +1,19 @@
+<template>
+    <h1>Typography</h1>
+    <section>
+        <div class="cont">
+            <div class="bx">
+                <h2><em>Header</em> size</h2>
+                <div>18px [Fix]</div>
+            </div>
+            <div class="bx">
+                <h2><em>Header</em> size</h2>
+                <div>18px [Fix]</div>
+            </div>
+        </div>
+    </section>
+</template>
+
+<script setup></script>
+
+<style lang="scss" scoped></style>
