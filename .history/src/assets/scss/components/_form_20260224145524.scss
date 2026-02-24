@@ -1,0 +1,114 @@
+@use "@scss/abstract" as ab;
+// Input
+// .form-field{
+//     // 컨테이너너
+//     display: block;
+//     // width: 100%; 부모에 맞춤 (선택)
+// }
+// .form-field{
+//     &__label{
+//         display: flex;
+//         flex-direction: column;
+//         gap: 8px;
+//         cursor: pointer;
+//     }
+// }
+// .form-input{
+//     // 인풋 박스 (테두리, 높이)
+//     display: flex;
+//     align-items: center;
+//     min-height: 38px;
+//     padding: 0 16px;
+//     border: 1px solid #555;
+//     border-radius: 4px;
+//     background: #fff;
+
+//     &__icon{
+//         // 아이콘 영역
+//         display: flex;
+//         align-items: center;
+//         flex-shrink: 0;
+    
+//         // input과의 간격
+//         &--prefix{margin-right: 8px;}
+//         &--suffix{margin-left: 8px;}
+//     }
+//     &__control{
+//         // 실제 input
+//         flex: 1;
+//         min-width: 0;
+//         padding: 12px 0;
+//         border: none;
+//         font-size: 16px;
+//         color: #333;
+//         background: transparent;
+    
+//         &:focus{outline: none;}
+//         &::placeholder{color: #999;}
+//     }
+
+//     &:focus { outline: none; }
+//     &::placeholder { color: #999; }
+//     &:focus-within { outline: 2px solid #0071bc; outline-offset: 2px; }
+// }
+
+// Select
+// 커스텀 Select (button + ul/li)
+.form-select {
+    position: relative;
+  
+    &__trigger {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 38px;
+      padding: 0 16px;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      color: #333;
+      text-align: left;
+      cursor: pointer;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  
+    &__value {
+      flex: 1;
+      min-width: 0;
+    }
+  
+    &__list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 4px 0 0;
+      padding: 0;
+      list-style: none;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-height: 240px;
+      overflow-y: auto;
+    }
+  
+    &__option {
+      padding: 12px 16px;
+      cursor: pointer;
+  
+      &:hover,
+      &.is-focused {
+        background: #f5f5f5;
+      }
+  
+      &.is-selected {
+        background: #e8f4fc;
+        color: #0071bc;
+      }
+    }
+  }
+

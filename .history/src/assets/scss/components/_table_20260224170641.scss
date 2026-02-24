@@ -1,0 +1,21 @@
+@use "@scss/abstract" as ab;
+
+.notice-table{
+    table{
+        width: 100%;
+        border-collapse: collapse; // 셀 사이 여백 제거(border 깔끔)
+        table-layout:fixed; // 컬럼 폭 고정, 긴 텍스트 처리에 유리
+    }
+
+    th, td{
+        padding: ab.$table-padding;
+        vertical-align: middle;
+    }
+
+    th{font-size: ab.$table-font-th;}
+    td{
+        font-size: ab.$table-font-td;
+        @media (max-width: 768px) {font-size: ab.$table-font-td-mo;}
+        .num{text-align: center;}
+    }
+}
