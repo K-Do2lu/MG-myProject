@@ -54,5 +54,5 @@ defineEmits(['update:modelValue'])
 const { fieldId, describedByIds } = useFormField('input', props)
 </script>
 <style lang="scss" scoped>
-@import "@scss/components/_form.scss";
+@use "@scss/components/_form.scss";
 </style>

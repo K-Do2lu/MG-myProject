@@ -1,0 +1,44 @@
+@use "@scss/abstract" as ab;
+
+.notice-table{
+    table{
+        width: 100%;
+        border-collapse: collapse; // 셀 사이 여백 제거(border 깔끔)
+        table-layout:fixed; // 컬럼 폭 고정, 긴 텍스트 처리에 유리
+    }
+    th, td{
+        vertical-align: middle;
+    }
+    th{
+        padding: ab.$table-thead-padding;
+        font-size: ab.$table-font-th;
+        font-weight: 600;
+    }
+    td{
+        height: ab.$table-list-height;
+        @media (max-width: 768px){height: ab.$table-list-height-mo;}
+        padding: ab.$table-list-padding;
+        @include ab.clamp-size(font-size, ab.$table-font-td-mo, ab.$table-font-td);
+        border-bottom: 1px solid ab.$table-list-bottomBorder;
+        &.num{text-align: center;}
+    }
+    thead{
+        height: ab.$table-thead-height;
+        border-top: 1px solid ab.$table-thead-topBorder;
+        border-bottom: 1px solid ab.$table-thead-bottomBorder;
+    }
+
+    td.title{
+        .notice-title{
+            @include ab.flex(flex, null, center, null, 8px);
+            &__link{@include ab.flex(flex, null, center);}
+            &__badge{@include ab.clamp-size(width, 32px, 28px); font-size: 10px; color: ab.$color; background: ab.$color-badge-point;}
+            &__icon{
+                width: ab.$icon-size-base;
+            }
+        }
+    }
+    .empty{
+        td{font-size: ab.$table-font-empty; color: ab.$table-color-empty; text-align: center;}
+    }
+}
