@@ -112,8 +112,8 @@
   .notice-pagination button {
     min-width: 32px;
     height: 32px;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 0 8px;
+    border-radius: 999px;
     border: 1px solid ab.$color-scale-40;
     background: ab.$color-scale-0;
     color: ab.$color-txt-main;

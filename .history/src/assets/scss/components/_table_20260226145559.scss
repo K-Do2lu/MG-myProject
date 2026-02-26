@@ -112,17 +112,17 @@
   .notice-pagination button {
     min-width: 32px;
     height: 32px;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 0 8px;
+    border-radius: 999px;
     border: 1px solid ab.$color-scale-40;
     background: ab.$color-scale-0;
     color: ab.$color-txt-main;
     cursor: pointer;
     @include ab.font-style(400);
     &.is-active {
-      border-color: ab.$btn-paging-active-border;
-      background: ab.$btn-paging-active-bg;
-      color: ab.$btn-paging-txt;
+      border-color: ab.$btn-;
+      background: ab.$color-primary-10;
+      color: ab.$color-scale-0;
       font-weight: 600;
     }
     &:disabled {

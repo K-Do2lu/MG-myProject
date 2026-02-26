@@ -75,31 +75,8 @@
   import BaseTable from '@/components/common/BaseTable.vue'
   
   const rows = ref([
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
-    { title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
-    
+    {title: '정규직(일반직) 및 계약직 상시채용', isImportant: true, hasAttachment: true, date: '2026.02.24', views: 623 },
+    { id: 9, title: '정규직(일반직) 및 계약직 상시채용', isImportant: false, hasAttachment: true, date: '2026.02.23', views: 865 },
   ])
   
   const isMobile = ref(false)

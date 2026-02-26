@@ -30,7 +30,7 @@
         </tr>
       </tbody>
     </table>
-<!-- paging -->
+<!-- pag -->
     <nav
       v-if="totalPages > 1"
       class="notice-pagination"
