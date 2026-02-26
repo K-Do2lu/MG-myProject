@@ -47,5 +47,5 @@
 <script setup></script>
 
 <style lang="scss" scoped>
-@import "@scss/components/_form.scss";
+@use "@scss/components/_form.scss";
 </style>

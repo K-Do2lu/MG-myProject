@@ -1,0 +1,178 @@
+@use "@scss/abstract" as ab;
+
+.notice-table {
+  .notice-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;              // 버튼 사이 간격
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .notice-pagination button {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 999px;
+    border: 1px solid ab.$color-scale-40;
+    background: ab.$color-scale-0;
+    color: ab.$color-txt-main;
+    cursor: pointer;
+    @include ab.font-style(400);
+    .is-active {
+      border-color: ab.$color-primary-10;
+      background: ab.$color-primary-10;
+      color: ab.$color-scale-0;
+      font-weight: 600;
+    }
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    &:not(:disabled):hover {
+      background: ab.$color-scale-10;
+    }
+    :focus-visible {
+      outline: 2px solid ab.$color-primary-0;
+      outline-offset: 2px;
+    }
+  }
+    .notice-search{
+        @include ab.grid(grid, 38px / minmax(80px, 80px) 300px, center, center, 16px);
+        padding: ab.$table-search-padding;
+        border-radius: 20px;
+        background: ab.$table-search-bg;
+        &:has( + div ){margin-bottom: 40px}
+    }
+    .notice-count{
+        @include ab.flex(flex, null, center, flex-end);
+        padding-bottom: 16px;
+        font-size: 16px;
+        em{font-weight: 600;}
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+  
+    th,
+    td {
+      vertical-align: middle;
+    }
+  
+    th {
+      padding: ab.$table-thead-padding;
+      font-size: ab.$table-font-th;
+      font-weight: 600;
+    }
+  
+    td {
+      height: ab.$table-list-height;
+      padding: ab.$table-list-padding;
+      @include ab.clamp-size(font-size, ab.$table-font-td-mo, ab.$table-font-td);
+      border-bottom: 1px solid ab.$table-list-bottomBorder;
+  
+      &.num {
+        text-align: center;
+      }
+    }
+  
+    thead {
+      height: ab.$table-thead-height;
+      border-top: 1px solid ab.$table-thead-topBorder;
+      border-bottom: 1px solid ab.$table-thead-bottomBorder;
+    }
+  
+    td.title {
+      .notice-title {
+        @include ab.flex(flex, null, center, null, 8px);
+  
+        &__text {
+          @include ab.flex(flex, null, center);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+  
+        &__badge {
+          @include ab.flex(flex, null, center, center);
+          @include ab.clamp-size(width, 32px, 28px);
+          padding: 4px 6px;
+          font-size: 10px;
+          color: ab.$color-scale-0;
+          border-radius: 999px;
+          background: ab.$color-badge-point;
+        }
+  
+        &__icon {
+          width: ab.$icon-size-base;
+        }
+      }
+  
+      .notice-num {
+        display: none; // 기본은 숨김 (PC)
+        [class^="notice-num"] {
+          font-size: 12px;
+          color: ab.$color-txt-sub;
+        }
+        &__date::after {
+          content: "";
+          display: inline-block;
+          width: 1px;
+          height: 10px;
+          margin: 0 20px;
+          background: ab.$color-scale-90;
+        }
+        .label {
+          display: inline-block;
+          margin-right: 4px;
+        }
+      }
+    }
+  
+    .empty {
+      td {
+        font-size: ab.$table-font-empty;
+        color: ab.$table-color-empty;
+        text-align: center;
+      }
+    }
+  
+    @media (max-width: ab.$bp-tablet) {
+      td {
+        height: ab.$table-list-height-mo;
+      }
+    }
+  
+    @media (max-width: 500px) {
+      thead {
+        display: none;
+      }
+  
+      td.title {
+        .notice-num {
+          display: block; // 제목 아래 “등록일/조회수” 노출
+        }
+      }
+  
+      td.num {
+        display: none; // PC용 날짜/조회수 컬럼 숨김
+      }
+    }
+
+    @media (max-width: ab.$bp-mobile){
+      .notice-pagination {
+        gap: 4px;
+        font-size: 12px;
+      }
+  
+      .notice-pagination button {
+        min-width: 28px;
+        height: 28px;
+        padding: 0 6px;
+      }
+    }
+  }
