@@ -1,0 +1,12 @@
+@use "@scss/abstract" as ab;
+.sub-banner{
+    posi
+    width: 100%;
+    @include ab.height(100%, 400px, 250px);
+    &__img{
+        @include ab.ratio-box(16/9);
+        img{
+            @include ab.fluid-img;
+        }
+    }
+}

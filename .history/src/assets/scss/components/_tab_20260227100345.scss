@@ -1,0 +1,44 @@
+@use "@scss/abstract" as ab;
+
+.base-tabs {
+  position: relative;
+  width: 100%;
+  background: #eee;
+}
+
+.base-tabs__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-self: center;
+  max-width: 1200px;
+  margin-bottom: 16px;
+  // border-bottom: 1px solid ab.$tab-border-color;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: red;
+  }
+}
+
+.base-tabs__tab {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: ab.$color-txt-sub;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &.is-active {
+    background: ab.$tab-active-bg;
+    color: ab.$tab-active-txt;
+  }
+}
+
+.base-tab__panel {
+  padding-top: 8px;
+}

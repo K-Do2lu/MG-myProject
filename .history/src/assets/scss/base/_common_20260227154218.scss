@@ -1,0 +1,6 @@
+@use '@scss/abstract/_variables.scss' as ab;
+
+// subpage title
+.sub-title{
+  @include ab.sub-title;
+}

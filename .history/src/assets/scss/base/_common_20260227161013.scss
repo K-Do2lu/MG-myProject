@@ -1,0 +1,11 @@
+@use "@scss/abstract/" as ab;
+
+// subpage title
+.sub-title{
+  &__text{@include ab.sub-title;}
+  &__desc{
+    font-size: 16px;
+    color: ab.$color-txt-sub;
+    font-weight: 400;
+  }
+}

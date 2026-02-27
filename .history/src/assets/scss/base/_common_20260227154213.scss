@@ -1,0 +1,6 @@
+@use 
+
+// subpage title
+.sub-title{
+  @include ab.sub-title;
+}

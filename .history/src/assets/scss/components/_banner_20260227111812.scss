@@ -1,0 +1,21 @@
+@use "@scss/abstract" as ab;
+.sub-banner{
+    width: 100%;
+    @include ab.height(100%, 400px, 250px);
+    .sub-text{
+        position: absolute;
+        font-size: ab.$sub-banner-text-size;
+        font-weight: 600;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+    &__img{
+        position: relative;
+        @include ab.ratio-box(16/9);
+        img{
+            @include ab.fluid-img;
+        }
+    }
+}

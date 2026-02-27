@@ -1,0 +1,7 @@
+@use "@scss/abstract/" as ab;
+
+// subpage title
+.sub-title{
+  &__text{@include ab.sub-title;}
+  
+}

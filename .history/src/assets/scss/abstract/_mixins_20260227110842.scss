@@ -1,0 +1,122 @@
+@use "sass:math"; //Sass에 내장된 math 라이브러리를 가져오는 것
+@use "./variables" as vars;
+
+// font
+@mixin font-style($weight: 400, $family: vars.$font-primary) {
+  font-family: $family;
+  font-weight: $weight;
+}
+
+
+// 말줄임
+@mixin ellipsis($line: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if $line ==1 {
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+  }
+}
+
+// media quary
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: vars.$bp-mobile) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: vars.$bp-tablet) {
+      @content;
+    }
+  }
+}
+
+// layout
+@mixin f-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin fi-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin f-align($align, $gap: null) {
+  display: flex;
+  align-items: $align;
+  @if $gap {
+    gap: $gap;
+  }
+}
+@mixin flex($display, $direction:null, $aline: null, $justify: null, $gap: null) {
+  display: $display;
+
+  @if $direction != null {
+    flex-direction: $direction;
+  } 
+  @if $aline != null {
+    align-items: $aline;
+  }
+  @if $justify != null {
+    justify-content: $justify;
+  }
+  @if $gap != null {
+    gap: $gap;
+  }
+}
+@mixin grid($display, $template: null, $aline: null, $justify:null,  $gap: null){
+  display: $display;
+
+  @if $template != null {
+    grid-template: $template;
+  }
+  @if $aline != null {
+    align-items: $aline;
+  }
+  @if $justify != null {
+    justify-content: $justify;
+  }
+  @if $gap != null {
+    gap: $gap;
+  }
+}
+
+// attribute
+@mixin height($height, $max-height: null, $min-height: null){
+  height: $height;
+
+  @if $max-height != null{
+    max-height: $max-height;
+  }
+  @if $max-height != null{
+    min-height: $min-height;
+  }
+}
+@mixin width($width, $max-width: null, $min-width: null){
+  width: $width;
+
+  @if $max-width != null{
+    max-width: $max-width;
+  }
+  @if $max-width != null{
+    min-width: $min-width;
+  }
+}
+
+// img
+// img: 비율 고정 + 그 안에서 img 꽉 채우기 (object-fit)
+@mixin ratio-box($ratio: 16/9){
+  overflow: hidden;
+  aspect-ratio: $ratio;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    vertical-align: top;
+  }
+}

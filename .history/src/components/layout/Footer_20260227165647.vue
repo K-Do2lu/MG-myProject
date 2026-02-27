@@ -1,0 +1,19 @@
+<template>
+  <footer id="footer" class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo">
+        <img src="@/assets/images/logo.png" alt="logo">
+      </div>
+      <div class="footer__info">
+        <p>© Company</p>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script setup>
+  </script>
+  
+<style lang="scss" scoped>
+@use "@scss/layout/_footer.scss";
+</style>

@@ -1,0 +1,40 @@
+@use "@scss/abstract" as ab;
+
+.base-tabs {
+  width: 100%;
+}
+
+.base-tabs__list {
+  @include ab.flex(flex, null, center, flex-start, 8px);
+  margin-bottom: 16px;
+  border-bottom: 1px solid ab.$color-scale-40;
+}
+
+.base-tabs__tab {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: ab.$color-txt-sub;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &.is-active {
+    color: ab.$color-txt-main;
+    font-weight: 600;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: ab.$color-primary-0;
+    }
+  }
+}
+
+.base-tab__panel {
+  padding-top: 8px;
+}

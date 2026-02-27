@@ -1,0 +1,7 @@
+@use '@scss/abstract/_variables.scss' as ab;
+@use '@scss/abstract/_mixins.scss' as ab;
+
+// subpage title
+.sub-title{
+  @include ab.sub-title;
+}
