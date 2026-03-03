@@ -1,0 +1,93 @@
+@use "@scss/abstract" as ab;
+
+.footer{
+    @include ab.clamp-size(padding, ab.$footer-padding-mo, ab.$footer-padding);
+    padding
+    background: ab.$footer-bg-color;
+    color: ab.$footer-font-color;
+
+    .footer-inner{
+        @include ab.flex(flex, column, flex-start);
+        max-width: 1200px;
+        margin: 0 auto;
+        &__top{
+            @include ab.flex(flex, null, center, space-between, 12px);
+            width: 100%;
+            flex-wrap: wrap;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid ab.$footer-border-color;
+            .inner-top{
+                &__logo{@include ab.clamp-size(width, ab.$footer-logo-width-mo, ab.$footer-logo-width)}
+                &__info{
+                    @include ab.flex(flex, null, center, null, 12px);
+                    flex-wrap: wrap;
+                    .info-list{
+                        @include ab.flex(flex, null, center, null, 26px);
+                        a{
+                            position: relative;
+                            display: inline-flex;
+                            align-items: center;
+                            height: auto;
+                            line-height: 1;
+                            &:not(:last-child)::after{
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                right: -13px;
+                                width: 3px;
+                                height: 3px;
+                                border-radius: 999px;
+                                background: ab.$footer-font-color;
+                            }
+                        }
+                    }
+                    .info-select{
+                        width: 160px;
+                        height: auto;
+                        flex-shrink: 0;
+                        .form-select.form-select--footer{background: ab.$footer-select-bg}
+                    }
+                } 
+               
+            }
+        }
+        &__bottom{
+            width: 100%;
+            @include ab.flex(flex, null, flex-start, space-between, 24px);
+            flex-wrap: wrap;
+            .inner-bottom{
+                &__info{
+                    @include ab.flex(flex, column, flex-start, flex-start, 16px);
+                    em{
+                        font-size: ab.$footer-font-bottom;
+                    }
+                    p{
+                        @include ab.flex(flex, column, null, null, 18px);
+                        font-size: ab.$footer-font-bottom;
+                        font-weight: 300;
+                        color: ab.$footer-font-color-sub;
+                        span{display: block;}
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: ab.$bp-mobile) {
+    }
+    
+    @media (max-width: ab.$bp-tablet) {
+        .footer-inner{
+            &__top{
+                .inner-top{
+                    &__info{
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+                }
+            }
+        }
+    }
+}

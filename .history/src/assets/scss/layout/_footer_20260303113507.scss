@@ -1,0 +1,6 @@
+@use "@scss/abstract" as ab;
+
+.footer{
+    padding: ab.$footer-padding;
+    background: ab.$footer-bg-color;
+}

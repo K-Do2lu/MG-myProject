@@ -1,0 +1,15 @@
+@use "@scss/abstract" as ab;
+
+.footer{
+    @include ab.flex(flex, null, center, space-between);
+    padding: ab.$footer-padding;
+    background: ab.$footer-bg-color;
+    color: ab.$footer-font-color;
+
+    .footer-inner{
+        max-width: 1200px;
+        &__top{
+        }
+    }
+    @media (max-width: ab.$bp-mobile){padding: ab.$footer-padding-mo;}
+}
