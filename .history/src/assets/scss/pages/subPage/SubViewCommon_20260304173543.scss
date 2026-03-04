@@ -1,0 +1,9 @@
+@use "@scss/abstract/" as ab;
+
+.tab-page{
+    .tab-page-inner{
+        max-width: 1200px;
+        background: #eee;
+        margin: 0 auto;
+    }
+}

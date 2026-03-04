@@ -1,0 +1,8 @@
+@use "@scss/abstract/" as ab;
+
+.sub-page{
+    &__content{
+        max-width: 1200px;
+        
+    }
+}
