@@ -1,0 +1,29 @@
+@use "@scss/abstract/" as ab;
+
+
+
+.content.intro{
+    position: relative;
+    background: #eee;
+    .intro-title{
+        h3{
+            margin-bottom: 12px;
+            @include ab.clamp-size('font-size', ab.$sub-intro-title-mo, ab.$sub-intro-title);
+            font-weight: 800;
+            color: ab.$color-secondary-30;
+        }
+        p{
+            @include ab.clamp-size('font-size', ab.$sub-intro-subTitle-mo, ab.$sub-intro-subTitle);
+            line-height: 26px;
+        }
+        
+    }
+    .intro-img{
+        width: 70%;
+        border-radius: 50px 0 0 50px;
+        box-shadow: inset 0px 0px 13px 0px rgba(255, 255, 255, 0.7);
+        overflow: hidden;
+        img{width: 100%;}
+
+    }
+}

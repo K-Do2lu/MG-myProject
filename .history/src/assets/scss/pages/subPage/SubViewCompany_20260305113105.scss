@@ -1,0 +1,43 @@
+@use "@scss/abstract/" as ab;
+
+
+
+.content.intro{
+    background: #eee;
+    .intro-title{
+        position: relative;
+        padding: 160px 0;
+        h3{
+            margin-bottom: 12px;
+            @include ab.clamp-size('font-size', ab.$sub-intro-title-mo, ab.$sub-intro-title);
+            font-weight: 800;
+            color: ab.$color-secondary-30;
+        }
+        p{
+            @include ab.clamp-size('font-size', ab.$sub-intro-subTitle-mo, ab.$sub-intro-subTitle);
+            line-height: 26px;
+        }
+        &::after{
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10%;
+            height: 100%;
+            border-radius: 50px 0 0 50px;
+            background: url('@/assets/images/sub_img_01.png') no-repeat center center / cover;
+            box-shadow: inset 0px 0px 13px 0px rgba(255, 255, 255, 0.7);
+        }
+        
+    }
+    .intro-img{
+        top: 0;
+        width: 70%;
+        height: 100%;
+        border-radius: 50px 0 0 50px;
+        background: url('@/assets/images/sub_img_01.png') no-repeat center center / cover;
+        box-shadow: inset 0px 0px 13px 0px rgba(255, 255, 255, 0.7);
+
+    }
+}

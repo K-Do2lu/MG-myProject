@@ -1,0 +1,20 @@
+@use "@scss/abstract/" as ab;
+
+.tab-page{
+    padding: 100px 20px;
+    .tab-page-inner{
+        @include ab.flex(flex, column, null, null, 80px);
+        max-width: 1200px;
+        margin: 0 auto;
+        .content{
+            .sub-title{}
+        }
+    }
+
+    @media(max-width: ab.$bp-mobile) {
+       padding: 50px 20px;
+    }
+    @media(max-width: ab.$bp-tablet) {
+        .tab-page-inner{gap: 100px;}
+    }
+} 

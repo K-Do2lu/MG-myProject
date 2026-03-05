@@ -1,0 +1,16 @@
+@use "@scss/abstract/" as ab;
+
+.tab-page{
+    padding: 100px 20px;
+    .tab-page-inner{
+        max-width: 1200px;
+        margin: 0 auto;
+        .content{
+            
+        }
+    }
+
+    @media(max-width: ab.$bp-mobile) {
+       padding: 50px 20px;
+    }
+} 
