@@ -1,0 +1,163 @@
+@use "@scss/abstract/" as ab;
+
+
+
+.inner--overview{@include ab.flex(flex, column, null, null, 100px);}
+// content intro
+.content.intro{
+    .intro-title{
+        position: relative;
+        padding: 160px 0;
+        h3{
+            margin-bottom: 12px;
+            @include ab.clamp-size('font-size', ab.$sub-intro-title-mo, ab.$sub-intro-title);
+            font-weight: 800;
+            color: ab.$color-secondary-30;
+            letter-spacing: -1.2px;
+        }
+        p{
+            @include ab.clamp-size('font-size', ab.$sub-intro-subTitle-mo, ab.$sub-intro-subTitle);
+            line-height: 26px;
+        }
+        &::after{
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70%;
+            height: 100%;
+            border-radius: 50px 0 0 50px;
+            background: url('@/assets/images/sub_img_01.png') no-repeat center center / cover;
+            box-shadow: inset 0px 0px 13px 0px rgba(255, 255, 255, 0.7);
+            z-index: ab.$z-menu;
+        }
+        
+    }
+    @media (max-width: ab.$bp-tablet) {
+        .intro-title{
+            padding-top: 250px;
+            padding-bottom: 0;
+            &::after{
+                width:100%;
+                height: 240px;
+            }
+        }
+        
+    }
+}
+// content overview
+.content.overview{
+    .overview-content{
+        @include ab.flex(flex, null, center, center, 24px);
+        flex-wrap: wrap;
+        &--img{
+            flex: 1 1 250px;
+            min-width: ab.$sub-overview-img-mo;
+            max-width: ab.$sub-overview-img;
+        }
+        &--text{
+            flex: 1 1 calc(50% - 12px);
+            min-width: 50%;
+            .overview-list{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px;
+                .list-item{
+                    @include ab.flex(flex, null, center, space-between, 12px);
+                    flex: 1 1 calc(50% - 12px);
+                    min-width: 210px;
+                    max-width: 100%;
+                    padding: 10px 0;
+                    border-bottom: 1px solid ab.$color-scale-90;
+                    dt{
+                        @include ab.clamp-size('font-size', ab.$sub-overview-list-fontTitle-mo, ab.$sub-overview-list-fontTitle);
+                        font-weight: 600;
+                    }
+                    dd{
+                        @include ab.clamp-size('font-size', ab.$sub-overview-list-fontSub-mo, ab.$sub-overview-list-fontSub);
+                    }
+                }
+            }
+        }
+    }
+}
+// content network
+.content.network{
+    .network-content{&--img{max-width: 50%; margin: 0 auto;}}
+    @media (max-width: ab.$bp-mobile) {.network-content{&--img{max-width: 100%;}}}
+    @media (max-width: ab.$bp-tablet) {.network-content{&--img{max-width: 70%;}}}
+}
+// content ci
+.content.ci{
+    .ci-content{
+        &--text{
+            @include ab.clamp-size('margin-bottom', 30px, 40px);
+            @include ab.clamp-size('font-size', ab.$sub-ci-text-mo, ab.$sub-ci-text);
+              color: ab.$sub-ci-text-color;
+              line-height: 1.5;
+              word-break: keep-all;
+        }
+        &--cardList{
+            display: flex;
+            flex-wrap: wrap;
+            @include ab.clamp-size('gap', ab.$sub-cardList-gap-mo, ab.$sub-cardList-gap);
+            .cardList-card{
+                min-width: 280px;
+                flex: 1 1 calc(50% - 30px);
+                @include ab.flex(flex, column, null, center);
+                @include ab.clamp-size('gap', ab.$sub-card-gap-mo, ab.$sub-card-gap);
+                padding: ab.$sub-card-padding;
+                border: 1px solid ab.$sub-card-border;
+                &--title{
+                    @include ab.clamp-size('font-size', ab.$sub-ci-card-title-mo, ab.$sub-ci-card-title);
+                    color: ab.$color-txt-sub;
+                    line-height: 1.5;
+                    strong{display: block; @include ab.clamp-size('font-size', ab.$sub-ci-card-text-mo, ab.$sub-ci-card-text); color: ab.$color-txt-main;}
+                }
+                &--img{
+                    align-self: center;
+                }
+            }
+        }
+        
+    }
+}
+// content message
+.content.message{
+    .message-content{
+        @include ab.flex(flex, null, stretch, space-between, 108px);
+        height: auto;
+        &--text{
+            @include ab.flex(flex, column, null, null, 30px);
+            flex: 0 0 auto;
+            line-height: 1.5;
+            &--title{@include ab.clamp-size('font-size', ab.$sub-message-title-mo, ab.$sub-message-title); font-weight: 500; color: ab.$sub-message-title-color; line-height: 1.5; word-break: keep-all;}
+            p{word-break: keep-all;}
+            @include ab.clamp-size('font-size', ab.$sub-message-text-size-mo, ab.$sub-message-text-size);
+            &--ceo{align-self: end; @include ab.clamp-size('font-size', ab.$sub-message-ceo-size-mo, ab.$sub-message-ceo-size); em{font-weight: 600;}}
+        }
+        &--img{img{height: 100%;}}
+    }
+
+    @media (max-width: 1200px){
+        .message-content--img{display: none;}
+        .message-content--text{flex:1}
+    }
+}
+// content history
+.content.history{
+   .history-content{
+    @include ab.flex(flex, null, null, null);
+    flex-wrap: wrap;
+    &--fix{
+        flex: 1 1 486px;
+        &--title{
+            
+        }
+    }
+    &--scroll{
+        flex: 1 1 auto;
+    }
+   }
+}
