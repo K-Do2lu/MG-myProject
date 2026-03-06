@@ -12,7 +12,4 @@
 <script setup></script>
 
 <style lang="scss" scoped>
-.btn-top {
-    
-}
 </style>
