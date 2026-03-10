@@ -177,15 +177,12 @@
                     @include ab.flex(flex, null, center, null, 20px);
                     align-items: flex-start;
                     @include ab.clamp-size('margin-left', 30px, 100px);
-                    margin-bottom: 12px;
                     @include ab.clamp-size('font-size', 15px, 18px);
                     line-height: 1.5;
                     .info{
                         &--date{min-width: 70px;}
                         &--text{
-                            &:has( + .info--text){display: block;}
-                            width: 100%;
-                        }
+                            width: 100%;}
                     }
                    &.accent{color: ab.$color-secondary-30; font-weight: 600;}
                    &:last-child{padding-bottom: 20px; border-bottom: 1px solid ab.$sub-history-border;}

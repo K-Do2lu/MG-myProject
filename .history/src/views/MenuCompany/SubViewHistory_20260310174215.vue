@@ -81,7 +81,9 @@ const historyList = [
   {
     year: '2020',
     events: [
-      {date: '2021.10.', text: 'MG정보시스템 법인설립', accent: false},
+      {date: '2021.10.', text: '새마을금고 업무프로그램 개발 및 유지보수 사업 수행', accent: false},
+      {date: '2020.11.', text: '소프트웨어사업자 신고확인서발급 업무 개시', accent: true},
+
     ]
   }
 ]

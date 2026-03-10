@@ -23,10 +23,7 @@
 
                 <div v-for="(item, idx) in item.events" :key="idx" class="item-content--info" :class="{accent : item.accent === true}">
                   <span class="info--date">{{ item.date }}</span>
-                  <span class="info--text">
-                    {{ item.text }}
-                    <template v-if="item.text2"><br>{{ item.text2 }}</template>
-                  </span>
+                  <span class="info--text">{{ item.text }}</span>
                 </div>
 
 
@@ -64,24 +61,7 @@ const historyList = [
       {date: '2022.12.', text: '새마을금고 전국 점포 전산장비 유지보수 사업 수행', accent: false},
       {date: '2023.12.', text: '새마을금고 정보통합시스템 통합유지보수 사업 수행', accent: true},
       {date: '2023.10.', text: '새마을금고중앙회 추가 출자를 통한 자본 증자', accent: false},
-      {date: '2023.09.', text: '새마을금고중앙회 IT자회사', text2:'MG데이터시스템 설립(MG정보시스템 인수) 등록',  accent: true},
-      {date: '2022.08.', text: '새마을금고 통합 장애 모니터링시스템 구축 사업 수행', accent: false},
-      {date: '2022.06.', text: '새마을금고 정보보호 실태 점검사업 사업 수행', accent: false},
-      {date: '2022.04.', text: '새마을금고 그룹웨어 시스템 재구축(H/W공급) 참여', accent: false},
-      {date: '2022.01.', text: '새마을금고 보안시스템 유지보수 참여', accent: false},
-    ]
-  },
-  {
-    year: '2021',
-    events: [
-      {date: '2021.10.', text: '새마을금고 업무프로그램 개발 및 유지보수 사업 수행', accent: false},
-      {date: '2020.11.', text: '소프트웨어사업자 신고확인서발급 업무 개시', accent: true},
-    ]
-  },
-  {
-    year: '2020',
-    events: [
-      {date: '2021.10.', text: 'MG정보시스템 법인설립', accent: false},
+      {date: '2023.09.', text: '새마을금고중앙회 IT자회사', text,  accent: false},
     ]
   }
 ]

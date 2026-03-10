@@ -69,19 +69,7 @@ const historyList = [
       {date: '2022.06.', text: '새마을금고 정보보호 실태 점검사업 사업 수행', accent: false},
       {date: '2022.04.', text: '새마을금고 그룹웨어 시스템 재구축(H/W공급) 참여', accent: false},
       {date: '2022.01.', text: '새마을금고 보안시스템 유지보수 참여', accent: false},
-    ]
-  },
-  {
-    year: '2021',
-    events: [
-      {date: '2021.10.', text: '새마을금고 업무프로그램 개발 및 유지보수 사업 수행', accent: false},
-      {date: '2020.11.', text: '소프트웨어사업자 신고확인서발급 업무 개시', accent: true},
-    ]
-  },
-  {
-    year: '2020',
-    events: [
-      {date: '2021.10.', text: 'MG정보시스템 법인설립', accent: false},
+
     ]
   }
 ]
