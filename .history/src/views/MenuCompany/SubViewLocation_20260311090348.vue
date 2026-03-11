@@ -1,0 +1,18 @@
+<template>
+  <div class="tab-page tab-page--location">
+    <div class="tab-page-inner inner--location">
+      <div class="content location">
+        <h2 class="sub-title"></h2>
+      </div>
+    </div>
+   </div>
+</template>
+
+<script setup>
+
+</script>
+
+<style scoped lang="scss">
+@import '@scss/pages/subPage/SubViewCommon.scss';
+@import '@scss/pages/subPage/SubViewCompany.scss';
+</style>
