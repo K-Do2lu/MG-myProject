@@ -1,0 +1,16 @@
+@use "@scss/abstract/" as ab;
+
+// subpage title
+.sub-title{
+  @include func.clamp-size('font-size', vars.$sub-title-size-mo, vars.$sub-title-size);
+  color: vars.$color-txt-main;
+  font-weight: 500;
+  &::after{
+    content: '';
+    display: block;
+    @include func.clamp-size('width', 30px, 50px);
+    height: 4px;
+    margin-top: 20px;
+    background: vars.$color-secondary-30;
+  }
+}
