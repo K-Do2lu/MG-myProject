@@ -1,0 +1,69 @@
+@use "@scss/abstract/" as ab;
+
+// content biz
+.content.biz{
+    .biz-content{
+        &--img{
+            display: grid;
+            grid-template: repeat(1, auto) / repeat(5, 1fr);
+            @include ab.clamp-size('padding-block', ab.$sub-biz-img-padding-y-mo, ab.$sub-biz-img-padding-y);
+            @include ab.clamp-size('padding-inline', ab.$sub-biz-img-padding-x-mo, ab.$sub-biz-img-padding-x);
+            background: ab.$sub-biz-img-bg;
+            .img-item{
+                position: relative;
+                @include ab.flex(flex, column, center, flex-start, 20px);
+                flex: 1 1 calc(100% / 5);
+                &:not(:last-child){
+                    &::after{
+                        content:'';
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 1px;
+                        height: 40%;
+                        background: #eee;
+                    }
+                }
+                &--img{@include ab.clamp-size('width', 60px, 100px);}
+                &--title{
+                    font-size: 16px;
+                     font-weight: 600;
+                     text-align: center;
+                     line-height: 1.5;
+                }
+            }
+        }
+        &--scroll{
+            .scroll-item{
+                @include ab.flex(flex, null, center, space-between, 20px);
+                flex-wrap: wrap;
+
+
+                &--img{flex: 1 1 50%; min-width: 344px; background-color: ; img{width: 100%;}}
+                &--text{
+                    flex: 1 1 calc(50% - 20px);
+
+                    &--title{font-weight: 500; @include ab.clamp-size('font-size', ab.$sub-biz-scroll-font-mo, ab.$sub-biz-scroll-font);}
+                    &--desc{@include ab.clamp-size('font-size', ab.$sub-biz-scroll-desc-font-mo, ab.$sub-biz-scroll-desc-font); line-height: 1.5;}
+                }
+            }
+        }
+
+        @media (max-width: 960px) {
+            .biz-content--img{
+                grid-template: repeat(5, 100px) / repeat(1, auto);
+                .img-item{
+                    flex-direction: row;
+                    &::after{
+                        width: 100%;
+                        height: 1px;
+                        top: auto;
+                        bottom: 0;
+                    }
+                    &--title{text-align: start;}
+                }
+            }
+        }
+    }
+}

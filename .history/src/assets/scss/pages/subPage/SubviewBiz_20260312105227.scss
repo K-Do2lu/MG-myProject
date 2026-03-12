@@ -1,0 +1,75 @@
+@use "@scss/abstract/" as ab;
+// content biz
+.content.biz{
+    .biz-content{
+        &--img{
+            @include ab.flex(flex, null, center, center);
+            .img-item{
+                width: calc(100% / 5);
+
+                .img-item--title{
+                    padding-top: 120px;
+                    font-weight: bold;
+                    text-align: ;
+                    background: #eee;
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+                &:nth-child(1){
+                    .img-item--title{
+                    position: relative;
+                        &::before{
+                           content: '';
+                            background: url('@/assets/images/icons/ico_biz_01.png') no-repeat center center / contain;
+                        }
+                    }
+                }
+                &:nth-child(2){
+                    .img-item--title{
+                    position: relative;
+                        &::before{
+                           content: '';
+                            background: url('@/assets/images/icons/ico_biz_02.png') no-repeat center center / contain;
+                        }
+                    }
+                }
+                
+                &:nth-child(3){
+                    .img-item--title{
+                    position: relative;
+                        &::before{
+                            content: '';
+                            background: url('@/assets/images/icons/ico_biz_03.png') no-repeat center center / contain;
+                        }
+                    }
+                }
+                &:nth-child(4){
+                    .img-item--title{
+                    position: relative;
+                        &::before{
+                            content: '';
+                            background: url('@/assets/images/icons/ico_biz_04.png') no-repeat center center / contain;
+                        }
+                    }
+                }
+                &:nth-child(5){
+                    .img-item--title{
+                    position: relative;
+                        &::before{
+                            content: '';
+                            background: url('@/assets/images/icons/ico_biz_05.png') no-repeat center center / contain;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}

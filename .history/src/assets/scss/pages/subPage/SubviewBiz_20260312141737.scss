@@ -1,0 +1,137 @@
+@use "@scss/abstract/" as ab;
+// content biz
+// .content.biz{
+//     .biz-content{
+//         &--img{
+//             @include ab.flex(flex, null, center, center);
+//             flex-wrap: wrap;
+//             @include ab.clamp-size('padding-block', ab.$sub-biz-img-padding-y-mo, ab.$sub-biz-img-padding-y);
+//             @include ab.clamp-size('padding-inline', ab.$sub-biz-img-padding-x-mo, ab.$sub-biz-img-padding-x);
+//             background: ab.$sub-biz-img-bg;
+//             .img-item{
+//                 position: relative;
+//                 flex: 0 1 auto;
+//                 width: calc(100% / 5);
+//                 min-width: 175px;
+//                 &:not(:nth-child(1)){
+//                     &::before{
+//                         content: '';
+//                         position: absolute;
+//                         top: 50%;
+//                         transform: translateY(-50%);
+//                         left: 0;
+//                         width: 1px;
+//                         height: 40%;
+//                         background: #eee;
+//                     }
+//                 }
+//                 .img-item--title{
+//                     padding-top: 120px;
+//                     font-weight: 600;
+//                     text-align: center;
+//                     line-height: 1.5;
+//                     &::before{
+//                         content: '';
+//                         position: absolute;
+//                         top: 0;
+//                         left: 50%;
+//                         transform: translateX(-50%);
+//                         width: 100px;
+//                         height: 100px;
+//                     }
+//                 }
+//                 &:nth-child(1){
+//                     .img-item--title{
+//                     position: relative;
+//                         &::before{
+//                            content: '';
+//                             background: url('@/assets/images/icons/ico_biz_01.png') no-repeat center center / contain;
+//                         }
+//                     }
+//                 }
+//                 &:nth-child(2){
+//                     .img-item--title{
+//                     position: relative;
+//                         &::before{
+//                            content: '';
+//                             background: url('@/assets/images/icons/ico_biz_02.png') no-repeat center center / contain;
+//                         }
+//                     }
+//                 }
+                
+//                 &:nth-child(3){
+//                     .img-item--title{
+//                     position: relative;
+//                         &::before{
+//                             content: '';
+//                             background: url('@/assets/images/icons/ico_biz_03.png') no-repeat center center / contain;
+//                         }
+//                     }
+//                 }
+//                 &:nth-child(4){
+//                     .img-item--title{
+//                     position: relative;
+//                         &::before{
+//                             content: '';
+//                             background: url('@/assets/images/icons/ico_biz_04.png') no-repeat center center / contain;
+//                         }
+//                     }
+//                 }
+//                 &:nth-child(5){
+//                     .img-item--title{
+//                     position: relative;
+//                         &::before{
+//                             content: '';
+//                             background: url('@/assets/images/icons/ico_biz_05.png') no-repeat center center / contain;
+//                         }
+//                     }
+//                 }
+                
+//             }
+//         }
+
+
+//         @media (max-width: 960px) {
+//             .img-item{flex: 1;}
+//         }
+//     }
+// }
+
+.content.biz{
+    .biz-content{
+        @include ab.clamp-size('padding-block', ab.$sub-biz-img-padding-y-mo, ab.$sub-biz-img-padding-y);
+        @include ab.clamp-size('padding-inline', ab.$sub-biz-img-padding-x-mo, ab.$sub-biz-img-padding-x);
+        background: ab.$sub-biz-img-bg;
+        &--img{
+            @include ab.flex(flex, null, null, center);
+            flex-wrap: wrap;
+            .img-item{
+                position: relative;
+                @include ab.flex(flex, column, center, flex-start, 20px);
+                flex: 1 1 calc(100% / 5);
+                &:not(:last-child){
+                    &::after{
+                        content:'';
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 1px;
+                        height: 40%;
+                        background: #eee;
+                    }
+                }
+                &--title{
+                    font-size: 16px;
+                     font-weight: 600;
+                     text-align: center;
+                     line-height: 1.5;
+                }
+            }
+        }
+
+        @media () {
+            
+        }
+    }
+}

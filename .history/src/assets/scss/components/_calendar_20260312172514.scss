@@ -1,0 +1,9 @@
+// element UI 프레미워크 오버라이드 scss파일입니다.
+
+
+.el-calendar{
+    .el-calendar__title{
+        &--title{color: red;}
+    }
+    .el-calendar__body{}
+}
