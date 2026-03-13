@@ -1,0 +1,8 @@
+@use "@scss/abstract/" as ab;
+
+.content.talent{
+    .talent-list{
+        @include ab.flex(flex, column, null, null);
+        
+    }
+}

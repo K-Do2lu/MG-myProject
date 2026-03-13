@@ -1,0 +1,109 @@
+@use "@scss/abstract/" as ab;
+
+.content.talent{
+    .talent-list{
+        @include ab.flex(flex, column, null, null);
+        @include ab.clamp-size('gap', 40px, 80px);
+
+        &--title{
+            @include ab.clamp-size('font-size', ab.$sub-talent-desc-font-mo, ab.$sub-talent-desc-font);
+            color: ab.$color-txt-sub;
+            text-align: center;
+            line-height: 1.5;
+            em{
+                display: block;
+                @include ab.clamp-size('font-size', ab.$sub-talent-title-font-mo, ab.$sub-talent-title-font);
+                font-weight: 500;
+                color: ab.$color-txt-main;
+            }
+        }
+        &--items{
+            @include ab.flex(flex, null, flex-start, space-between, 30px);
+            // flex-wrap: wrap;
+        }
+        &--item{
+            @include ab.flex(flex, column, center, null);
+            flex: 1 1 calc(100% / 3 - 60px);
+            @include ab.clamp-size('gap', 8px, 30px);
+            &::before{
+                content: '';
+                position: relative;
+                flex-shrink: 1;
+                // 769px ~ 데스크탑: 224px → 300px 로만 변함. 769px 미만은 min(224px) 유지.
+                display: block;
+                @include ab.clamp-size('width', 224px, 300px, 769px, ab.$bp-desktop);
+                @include ab.clamp-size('height', 224px, 300px, 769px, ab.$bp-desktop);
+                border-radius: 50%; 
+            }
+            &:nth-child(1){
+                &::before{
+                    background: url('@/assets/images/sub_talent_01.png') no-repeat center center / cover;
+                }
+            }
+            &:nth-child(2){
+                &::before{
+                    background: url('@/assets/images/sub_talent_02.png') no-repeat center center / cover;
+                }
+            }
+            &:nth-child(3){
+                &::before{
+                    background: url('@/assets/images/sub_talent_03.png') no-repeat center center / cover;
+                }
+            }
+            .item--title{
+                line-height: 1.5;
+                text-align: center;
+                @include ab.clamp-size('font-size', ab.$sub-talent-itemDesc-font-mo, ab.$sub-talent-itemDesc-font);
+
+                em{
+                    display: block;
+                    margin-bottom: 8px;
+                    @include ab.clamp-size('font-size', ab.$sub-talent-itemTitle-font-mo, ab.$sub-talent-itemTitle-font);
+                    font-weight: 500;
+                    color: ab.$color-secondary-30;}
+            }
+        }
+        @media (max-width: 768px) {
+            .talent-list--items{
+                flex-wrap: wrap;
+                flex-direction: column;
+
+                .talent-list--item{
+                    position: relative;
+                    width: 100%;
+                    flex: 0 1 364px;
+                    @include ab.clamp-size('flex-basis', 150px, 364px);
+                    height: 364px;
+                    &::before{
+                        border-radius: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    &::after{
+                        content: '';
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,.6);
+                    }
+                    .item--title{
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        max-width: 80%;
+                        color: ab.$color-scale-0;
+                        word-break: keep-all;
+                        text-wrap: balance;
+                        z-index: 1;
+                        em{color: ab.$color-scale-0;}
+                    }
+                }
+            }
+        }
+
+    }
+
+    .talent-link{
+        
+    }
+}

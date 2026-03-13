@@ -1,0 +1,48 @@
+@use "@scss/abstract/" as ab;
+
+.content.talent{
+    .talent-list{
+        @include ab.flex(flex, column, null, null);
+        @include ab.clamp-size('gap', 40px, 80px);
+
+        &--title{
+            @include ab.clamp-size('font-size', ab.$sub-talent-desc-font-mo, ab.$sub-talent-desc-font);
+            color: ab.$color-txt-sub;
+            text-align: center;
+            line-height: 1.5;
+            em{
+                display: block;
+                @include ab.clamp-size('font-size', ab.$sub-talent-title-font-mo, ab.$sub-talent-title-font);
+                font-weight: 500;
+                color: ab.$color-txt-main;
+            }
+        }
+
+        &--items{
+            @include ab.flex(flex, null, flex-start, space-between, 24px);
+            flex-wrap: wrap;
+        }
+
+        &--item{
+            @include ab.flex(flex, column, center, null);
+            flex: 1 1 calc(100% / 3 - 50px);
+            min-width: 227px;
+            @include ab.clamp-size('gap', 8px, 30px);
+            .item--img{max-width: 300px; border-radius: 50%; overflow: hidden; img{width: 100%;}}
+            .item--title{
+                line-height: 1.5;
+                text-align: center;
+                @include ab.clamp-size('font-size', ab.$sub-talent-itemDesc-font-mo, ab.$sub-talent-itemDesc-font);
+
+                em{
+                    display: block;
+                    margin-bottom: 8px;
+                    @include ab.clamp-size('font-size', ab.$sub-talent-itemTitle-font-mo, ab.$sub-talent-itemTitle-font);
+                    font-weight: 500;
+                    color: ab.$color-secondary-30;}
+            }
+        }
+
+        @media(min-width: 768px) {}
+    }
+}

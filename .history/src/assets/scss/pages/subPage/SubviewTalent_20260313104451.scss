@@ -1,0 +1,33 @@
+@use "@scss/abstract/" as ab;
+
+.content.talent{
+    .talent-list{
+        @include ab.flex(flex, column, null, null);
+        @include ab.clamp-size('gap', 40px, 80px);
+
+        &--title{
+            @include ab.clamp-size('font-size', ab.$sub-talent-desc-font-mo, ab.$sub-talent-desc-font);
+            color: ab.$color-txt-sub;
+            text-align: center;
+            line-height: 1.5;
+            em{
+                @include ab.clamp-size('font-size', ab.$sub-talent-title-font-mo, ab.$sub-talent-title-font);
+                font-weight: 500;
+                color: ab.$color-txt-main;
+            }
+        }
+
+        &--items{
+            @include ab.flex(flex, null, null, null, 24px);
+        }
+
+        &--item{
+            @include ab.flex(flex, column, center, null);
+            @include ab.clamp-size('gap', 8px, 30px);
+            .item--img{max-width: 300px; border-radius: 50%; overflow: hidden; img{width: 100%;}}
+            .item--title{
+                em{@include ab.clamp-size('font-size', ab.$sub-talent-itemTitle-font-mo, ab.$sub-talent-itemTitle-font); font-weight: 500; color: ab.$color-txt-main; color: ab.$color-secondary-30;}
+            }
+        }
+    }
+}

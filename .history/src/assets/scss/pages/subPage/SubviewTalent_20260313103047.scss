@@ -1,0 +1,12 @@
+@use "@scss/abstract/" as ab;
+
+.content.talent{
+    .talent-list{
+        @include ab.flex(flex, column, null, null);
+        @include ab.clamp-size('gap', 40px, 80px);
+
+        &--title{
+            @include ab.clamp-size('font-size', ab.$sub-talent-title-font-mo, ab.$sub-talent-title-font);
+        }
+    }
+}

@@ -1,0 +1,13 @@
+@use "@scss/abstract/" as ab;
+
+.content.talent{
+    .talent-list{
+        @include ab.flex(flex, column, null, null);
+        @include ab.clamp-size('gap', 40px, 80px);
+
+        &--title{
+            em{}
+            
+        }
+    }
+}
