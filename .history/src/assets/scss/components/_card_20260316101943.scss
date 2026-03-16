@@ -1,0 +1,7 @@
+@use "@scss/abstract" as ab;
+
+.base-card{
+    padding: ab.$card-padding;
+    border-radius: ab.$card-radius;
+    
+}
