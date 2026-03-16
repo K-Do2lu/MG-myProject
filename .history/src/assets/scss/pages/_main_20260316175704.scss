@@ -1,0 +1,9 @@
+@use "@scss/abstract/" as ab;
+
+// page
+.page{
+  padding-inline: 20px;
+  @include ab.clamp-size('padding-block', 40px, 100px);
+
+  & * {margin: 0 auto;}
+}

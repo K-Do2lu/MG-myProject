@@ -1,0 +1,46 @@
+<template>
+    <div class="base-card-hover">
+
+
+        <div class="hover-type">
+            <div class="hover-type__title">
+                <p class="hover-type__title-text">IT 시스템 구축(SI)</p>
+                <p>서브텍스트</p>
+            </div>
+            <div class="hover-type__img">
+                <img src="@/assets/images/main_hover_01.png" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped>
+@use "@scss/abstract" as ab;
+
+.base-card-hover{
+    .hover-type{
+        @include ab.flex(flex, null, center, space-between);
+        border: 1px solid ab.$color-scale-100;
+        border-radius: ab.$cardHover-radius;
+        overflow: hidden;
+
+        &__title{
+            padding: ab.$cardHover-padding-block;
+            @include ab.clamp-size('padding-inline', ab.$cardHover-padding-inline-mo, ab.$cardHover-padding-inline);
+            line-height: 1.5;
+        }
+        &__title-text{
+                font-weight: 600;
+                font-size: ab.$cardHover-font;
+                line-height: 1.5;
+            }
+    }
+}
+
+</style>
