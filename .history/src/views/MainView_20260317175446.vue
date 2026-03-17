@@ -11,9 +11,7 @@
       <h2 class="main-title">채용공고</h2>
 
       <div class="job-img">
-        <a href="https://career.mgdatasystem.co.kr/" target="_blank">
-          <img src="/src/assets/images/main_banner_01.png" alt="채용공고 이미지">
-        </a>
+        <img src="/src/assets/images/main/main_job_01.png" alt="채용공고 이미지">
       </div>
 
     </div>

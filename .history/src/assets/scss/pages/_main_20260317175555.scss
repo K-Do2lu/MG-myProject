@@ -6,6 +6,7 @@
   .main-cont{
     @include ab.clamp-size('padding-block', 40px, 100px);
     padding-inline: 20px;
+    background: red;
   }
 }
 
@@ -15,8 +16,3 @@
 }
 
 // job
-.main-cont.job{
-  .job-img{
-    @include ab.flex(flex, null, center, center);
-  }
-}

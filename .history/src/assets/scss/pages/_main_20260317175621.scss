@@ -16,7 +16,5 @@
 
 // job
 .main-cont.job{
-  .job-img{
-    @include ab.flex(flex, null, center, center);
-  }
+  .job-img{}
 }

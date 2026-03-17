@@ -17,6 +17,6 @@
 // job
 .main-cont.job{
   .job-img{
-    @include ab.flex(flex, null, center, center);
+    margin: 0 auto;
   }
 }
