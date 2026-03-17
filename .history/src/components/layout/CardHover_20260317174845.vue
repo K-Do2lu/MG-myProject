@@ -135,7 +135,7 @@ const onEnter = (idx) => {
             flex-direction: column;
             position: inherit;
             width: 287px;
-            height: auto;
+            height: a;
             min-width: 287px;
             min-height: 280px;
             &::before{display: none; pointer-events: none;}
@@ -153,12 +153,6 @@ const onEnter = (idx) => {
             .hover-type__img{
                 position: inherit !important;
                 order: -1;
-            }
-
-            &.active{
-                height: auto;
-                min-height: 100%;
-                max-height: 100%;
             }
         }
     }

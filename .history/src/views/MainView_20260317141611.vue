@@ -29,6 +29,5 @@
 <script setup>
 </script>
   
-<style scoped>
-@use '@scss/pages/_main.scss';
+<style scoped>@use '@scss/pages/_main.scss';
 </style>

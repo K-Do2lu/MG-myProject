@@ -134,10 +134,10 @@
       <div class="bx" style="background: #fbfbfb; padding: 20px;">
         <h2><em>Notice</em>Card Type</h2>
         <BaseCard 
-          date="2026.03.05" 
-          title="공지 제목 예시" 
-          content="카드 내용 텍스트입니다. Guide에서 보여주기 위한 샘플입니다." 
-        />
+  date="2026.03.05" 
+  title="공지 제목 예시" 
+  content="카드 내용 텍스트입니다. Guide에서 보여주기 위한 샘플입니다." 
+/>
       </div>
     </div>
 

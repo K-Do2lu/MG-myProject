@@ -4,7 +4,7 @@
     <div class="main-cont business">
       <h2 class="main-title">사업영역</h2>
 
-      <CardHover />
+      base
     </div>
 
     <div class="main-cont job">
@@ -29,6 +29,5 @@
 <script setup>
 </script>
   
-<style scoped>
-@use '@scss/pages/_main.scss';
+<style scoped>@use '@scss/pages/_main.scss';
 </style>

@@ -156,9 +156,7 @@ const onEnter = (idx) => {
             }
 
             &.active{
-                height: auto;
-                min-height: 100%;
-                max-height: 100%;
+                
             }
         }
     }

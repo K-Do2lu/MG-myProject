@@ -5,7 +5,8 @@
 
   .main-cont{
     @include ab.clamp-size('padding-block', 40px, 100px);
-    padding-inline: 20px;
+    
+    @include ab.clamp-size('padding-inline', 20px, 0);
   }
 }
 

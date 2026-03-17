@@ -1,17 +1,14 @@
 <template>
     <div class="base-card-hover">
 
-        <div class="hover-type" v-for="(item, idx) in hoverCards" :key="idx" :class="{ active: activeIndex === idx }"" 
-        @mouseenter="onEnter(idx)">
+        <div class="hover-type" v-for="(item, idx) in hoverCards" :key="idx" :class="{active: isActive}" 
+        @mouseenter="isActive = true" @mouseleave="isActive = false">
             <div class="hover-type__title">
                 <p class="hover-type__title--text">
                     {{ item.title }}
-                    <template v-if="item.title2 && !isActive">
+                    <template v-if="item.title2 &&">
                         <br>
                         {{ item.title2 }}
-                    </template>
-                    <template v-else-if="item.title2">
-                        {{ ' ' + item.title2 }}
                     </template>
                 </p>
                 <p class="hover-type__title--desc">{{ item.desc }}</p>
@@ -27,6 +24,7 @@
 
 <script setup>
 import { ref } from 'vue';
+const isActive = ref(false);
 
 const hoverCards = ref([
     {title: 'IT 시스템 구축', title2: '(SI)',
@@ -45,20 +43,16 @@ const hoverCards = ref([
     desc: 'IT센터에 위치하는 모든 종류의 IT인프라(H/W, S/W, N/W)에 대한 유지보수 및 기술지원을 제공하여 드립니다.',
     img: 'main_hover_05.png'},
 ])
-const isActive = ref(false);
-
-const activeIndex = ref(0)
-const onEnter = (idx) => {
-  activeIndex.value = idx
-}
-
 
 </script>
 
 <style lang="scss" scoped>
 @use "@scss/abstract" as ab;
+
+
+
 .base-card-hover{
-    @include ab.flex(flex, null, null, center, 20px);
+    @include ab.flex(flex);
 
     .hover-type{
         position: relative;
@@ -69,7 +63,7 @@ const onEnter = (idx) => {
         min-width: 165px;
         min-height: 280px;
         border-radius: ab.$cardHover-radius;
-        border: 1px solid ab.$color-secondary-30;
+        border: 1px solid ab.$color-scale-100;
         overflow: hidden;
         cursor: pointer;
         transition: width .5s ease-in-out, min-width 0.5s ease-in-out;
@@ -125,42 +119,8 @@ const onEnter = (idx) => {
                 position: inherit !important;
             }
         }
-    }
 
-    @media (max-width: 1200px) {
-        max-width: 100%;
-        overflow-x: scroll;
 
-        .hover-type{
-            flex-direction: column;
-            position: inherit;
-            width: 287px;
-            height: auto;
-            min-width: 287px;
-            min-height: 280px;
-            &::before{display: none; pointer-events: none;}
-
-            .hover-type__title{
-                position: inherit;
-                @include ab.clamp-size('padding-inline', ab.$cardHover-padding-inline-mo, ab.$cardHover-padding-inline);
-                padding-block: 24px;
-                color: ab.$color-scale-100;
-                
-                p{line-height: 1.5;letter-spacing: -0.02em; line-height: 1.6; word-break: keep-all;}
-                &--text{ margin-bottom: 16px; font-size: ab.$cardHover-font; font-weight: 600; text-align: left;}
-                &--desc{display: block; color: ab.$color-txt-sub;}
-            }
-            .hover-type__img{
-                position: inherit !important;
-                order: -1;
-            }
-
-            &.active{
-                height: auto;
-                min-height: 100%;
-                max-height: 100%;
-            }
-        }
     }
 }
 

@@ -128,38 +128,29 @@ const onEnter = (idx) => {
     }
 
     @media (max-width: 1200px) {
-        max-width: 100%;
-        overflow-x: scroll;
-
         .hover-type{
-            flex-direction: column;
             position: inherit;
-            width: 287px;
-            height: auto;
-            min-width: 287px;
+            width: 487px;
+            height: 280px;
             min-height: 280px;
+            max-height: 280px;
             &::before{display: none; pointer-events: none;}
 
+            
             .hover-type__title{
-                position: inherit;
-                @include ab.clamp-size('padding-inline', ab.$cardHover-padding-inline-mo, ab.$cardHover-padding-inline);
-                padding-block: 24px;
-                color: ab.$color-scale-100;
-                
-                p{line-height: 1.5;letter-spacing: -0.02em; line-height: 1.6; word-break: keep-all;}
-                &--text{ margin-bottom: 16px; font-size: ab.$cardHover-font; font-weight: 600; text-align: left;}
-                &--desc{display: block; color: ab.$color-txt-sub;}
+            position: inherit;
+            @include ab.clamp-size('padding-inline', ab.$cardHover-padding-inline-mo, ab.$cardHover-padding-inline);
+            padding-block: 24px;
+            color: ab.$color-scale-100;
+            
+            p{line-height: 1.5;letter-spacing: -0.02em; line-height: 1.6; word-break: keep-all;}
+            &--text{ margin-bottom: 16px; font-size: ab.$cardHover-font; font-weight: 600; text-align: left;}
+            &--desc{display: block; color: ab.$color-txt-sub;}
             }
             .hover-type__img{
                 position: inherit !important;
-                order: -1;
             }
 
-            &.active{
-                height: auto;
-                min-height: 100%;
-                max-height: 100%;
-            }
         }
     }
 }

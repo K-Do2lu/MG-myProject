@@ -154,12 +154,6 @@ const onEnter = (idx) => {
                 position: inherit !important;
                 order: -1;
             }
-
-            &.active{
-                height: auto;
-                min-height: 100%;
-                max-height: 100%;
-            }
         }
     }
 }
