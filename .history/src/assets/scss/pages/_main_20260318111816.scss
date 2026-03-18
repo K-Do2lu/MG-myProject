@@ -1,0 +1,24 @@
+@use "@scss/abstract/" as ab;
+
+// page
+.page{
+
+  .main-cont{
+    @include ab.clamp-size('padding-block', 40px, 100px);
+    padding-inline: 20px;
+  }
+}
+
+//  business
+.main-cont.business{
+  background: #fbfbfb;
+}
+
+// job
+.main-cont.job{
+  .job-img{
+    @include ab.flex(flex, null, center, center);
+  }
+}
+
+// notice

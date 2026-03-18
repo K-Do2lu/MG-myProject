@@ -1,0 +1,41 @@
+@use "@scss/abstract/" as ab;
+
+// page
+.page{
+
+  .main-cont:not(.banner){
+    @include ab.clamp-size('padding-block', 40px, 100px);
+    padding-inline: 20px;
+  }
+}
+
+//  business
+.main-cont.business{
+  background: #fbfbfb;
+}
+
+// job
+.main-cont.job{
+  .job-img{
+    @include ab.flex(flex, null, center, center);
+  }
+}
+
+// notice
+.main-cont.notice{
+  background: #fbfbfb;
+
+  .banner-wrapper{
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+
+    .banner-list{
+      @include ab.flex(flex);
+      width: 200vw;
+      .banner-item{
+        width: 100vw;
+      }
+    }
+  }
+}
