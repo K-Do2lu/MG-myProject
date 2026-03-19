@@ -15,7 +15,7 @@
                 class="base-modal-banner__img"
                 v-for="(banner, idx) in banners" :key="idx"
                 >
-                    <a :href="banner.href" target="_blank">
+                    <a :href="banner.href">
                         <img :src="$getImg(banner.src)" :alt="banner.alt">
                     </a>
                 </div>
@@ -136,7 +136,6 @@ const disableIndicator = computed(() => ({
     @include ab.clamp-size(border-radius, 20px, 30px);
     box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    z-index: ab.$z-modal;
 
     button {
         border: none; background: none; padding: 0; cursor: pointer;

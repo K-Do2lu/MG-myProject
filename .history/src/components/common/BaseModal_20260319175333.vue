@@ -136,7 +136,6 @@ const disableIndicator = computed(() => ({
     @include ab.clamp-size(border-radius, 20px, 30px);
     box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    z-index: ab.$z-modal;
 
     button {
         border: none; background: none; padding: 0; cursor: pointer;
