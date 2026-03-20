@@ -1,10 +1,10 @@
 <template>
-    <div class="tab-page tab-page--notice">
-      <div class="tab-page-inner inner--notice">
-        <div class="content notice">
-          <h2 class="sub-title">공지사항</h2>
-          <!-- table -->
-          <div class="notice-table">
+  <div class="tab-page tab-page--tender">
+    <div class="tab-page-inner inner--tender">
+      <div class="content tender">
+        <h2 class="sub-title">입찰공고</h2>
+         <!-- table -->
+         <div class="notice-table">
             <div v-if="search" class="notice-search">
               <BaseSelect
                 v-model="regionVal"
@@ -17,8 +17,6 @@
                 </template>
               </BaseInput>
             </div>
-            <p v-if="loading" class="notice-loading">불러오는 중…</p>
-            <p v-else-if="fetchError" class="notice-error">{{ fetchError }}</p>
             <div class="notice-count">총 <em>{{ rows.length }}</em>건</div>
   
             <BaseTable
@@ -67,37 +65,37 @@
               </template>
             </BaseTable>
           </div>
-        </div>
       </div>
-      
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onBeforeUnmount, onMounted } from 'vue'
-  import { supabase } from '@/supabase'
-  
-  const rows = ref([])
-  const loading = ref(true)
-  const fetchError = ref(null)
-  
-  /** DB의 날짜 컬럼(ISO 문자열) → 화면용 'YYYY.MM.DD' */
-  function formatNoticeDate(iso) {
-    if (!iso) return ''
-    const d = new Date(iso)
-    const y = d.getFullYear()
-    const m = String(d.getMonth() + 1).padStart(2, '0')
-    const day = String(d.getDate()).padStart(2, '0')
-    return `${y}.${m}.${day}`
-  }
-  
-  async function loadNotices() {
+  </div>
+</template>
+
+<script setup>
+import { ref, onBeforeUnmount, onMounted } from 'vue'
+import { supabase } from '@/supabase'
+
+const rows = ref([])
+const loading = ref(true)
+const fetchError = ref(null)
+
+function formatTenderDate(iso) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}.${m}.${day}`
+}
+
+async function loadTenders() {
   loading.value = true
   fetchError.value = null
-  const { data, error: sbError } = await supabase
-    .from('notice')
-    .select('*')
+
+  const { data, error: sbError } = await tender
+    .from('tender') // Supabase 실제 테이블명으로 변경
+    .select('id, title, created_at, content, view_count, is_hot, has_file')
     .order('created_at', { ascending: false })
+
   if (sbError) {
     fetchError.value = sbError.message
     rows.value = []
@@ -105,7 +103,7 @@
     rows.value = (data ?? []).map((row) => ({
       id: row.id,
       title: row.title,
-      date: formatNoticeDate(row.created_at),
+      date: formatTenderDate(row.created_at),
       views: row.view_count ?? 0,
       isImportant: Boolean(row.is_hot),
       hasAttachment: Boolean(row.has_file),
@@ -113,32 +111,37 @@
   }
   loading.value = false
 }
-  
-  const isMobile = ref(false)
-  const searchVal = ref('')
-  const regionVal = ref('')
-  const regionOptions = [
-    { value: 'title', label: '제목' },
-    { value: 'content', label: '내용' },
-  ]
-  const search = ref(true)
-  
-  let mq
-  const updateIsMobile = () => {
-    if (!mq) return
-    isMobile.value = mq.matches
-  }
-  
-  onMounted(() => {
-    loadNotices()
-    mq = window.matchMedia('(max-width: 500px)')
-    updateIsMobile()
-    mq.addEventListener('change', updateIsMobile)
-  })
+
+const isMobile = ref(false)
+const searchVal = ref('')
+const regionVal = ref('')
+const regionOptions = [
+  { value: 'title', label: '제목' },
+  { value: 'content', label: '내용' },
+]
+const search = ref(true)
+
+let mq
+const updateIsMobile = () => {
+  if (!mq) return
+  isMobile.value = mq.matches
+}
+
+onMounted(() => {
+  loadTenders()
+  mq = window.matchMedia('(max-width: 500px)')
+  updateIsMobile()
+  mq.addEventListener('change', updateIsMobile)
+})
+
+onBeforeUnmount(() => {
+  if (mq) mq.removeEventListener('change', updateIsMobile)
+})
   
   onBeforeUnmount(() => {
     if (mq) mq.removeEventListener('change', updateIsMobile)
   })
-  </script>
   
-  <style scoped></style>
+</script>
+
+<style scoped></style>

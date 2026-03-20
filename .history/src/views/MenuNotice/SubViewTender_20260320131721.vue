@@ -1,10 +1,10 @@
 <template>
-    <div class="tab-page tab-page--notice">
-      <div class="tab-page-inner inner--notice">
-        <div class="content notice">
-          <h2 class="sub-title">공지사항</h2>
-          <!-- table -->
-          <div class="notice-table">
+  <div class="tab-page tab-page--tender">
+    <div class="tab-page-inner inner--tender">
+      <div class="content tender">
+        <h2 class="sub-title">입찰공고</h2>
+         <!-- table -->
+         <div class="notice-table">
             <div v-if="search" class="notice-search">
               <BaseSelect
                 v-model="regionVal"
@@ -17,8 +17,6 @@
                 </template>
               </BaseInput>
             </div>
-            <p v-if="loading" class="notice-loading">불러오는 중…</p>
-            <p v-else-if="fetchError" class="notice-error">{{ fetchError }}</p>
             <div class="notice-count">총 <em>{{ rows.length }}</em>건</div>
   
             <BaseTable
@@ -67,52 +65,18 @@
               </template>
             </BaseTable>
           </div>
-        </div>
       </div>
-      
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onBeforeUnmount, onMounted } from 'vue'
-  import { supabase } from '@/supabase'
-  
-  const rows = ref([])
-  const loading = ref(true)
-  const fetchError = ref(null)
-  
-  /** DB의 날짜 컬럼(ISO 문자열) → 화면용 'YYYY.MM.DD' */
-  function formatNoticeDate(iso) {
-    if (!iso) return ''
-    const d = new Date(iso)
-    const y = d.getFullYear()
-    const m = String(d.getMonth() + 1).padStart(2, '0')
-    const day = String(d.getDate()).padStart(2, '0')
-    return `${y}.${m}.${day}`
-  }
-  
-  async function loadNotices() {
-  loading.value = true
-  fetchError.value = null
-  const { data, error: sbError } = await supabase
-    .from('notice')
-    .select('*')
-    .order('created_at', { ascending: false })
-  if (sbError) {
-    fetchError.value = sbError.message
-    rows.value = []
-  } else {
-    rows.value = (data ?? []).map((row) => ({
-      id: row.id,
-      title: row.title,
-      date: formatNoticeDate(row.created_at),
-      views: row.view_count ?? 0,
-      isImportant: Boolean(row.is_hot),
-      hasAttachment: Boolean(row.has_file),
-    }))
-  }
-  loading.value = false
-}
+  </div>
+</template>
+
+<script setup>
+import { ref,onBeforeUnmount, onMounted, } from 'vue'
+import { supabase } from '@/supabase'
+
+    const rows = ref([])
+    const loading = ref(true)
+    const fetchError = ref(null)
   
   const isMobile = ref(false)
   const searchVal = ref('')
@@ -130,7 +94,6 @@
   }
   
   onMounted(() => {
-    loadNotices()
     mq = window.matchMedia('(max-width: 500px)')
     updateIsMobile()
     mq.addEventListener('change', updateIsMobile)
@@ -139,6 +102,7 @@
   onBeforeUnmount(() => {
     if (mq) mq.removeEventListener('change', updateIsMobile)
   })
-  </script>
   
-  <style scoped></style>
+</script>
+
+<style scoped></style>

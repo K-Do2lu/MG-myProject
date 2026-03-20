@@ -96,7 +96,7 @@
   fetchError.value = null
   const { data, error: sbError } = await supabase
     .from('notice')
-    .select('*')
+    .select('id, title, created_at, content, view_count, is_hot, has_file')
     .order('created_at', { ascending: false })
   if (sbError) {
     fetchError.value = sbError.message

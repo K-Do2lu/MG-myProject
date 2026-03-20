@@ -92,27 +92,30 @@
   }
   
   async function loadNotices() {
-  loading.value = true
-  fetchError.value = null
-  const { data, error: sbError } = await supabase
-    .from('notice')
-    .select('*')
-    .order('created_at', { ascending: false })
-  if (sbError) {
-    fetchError.value = sbError.message
-    rows.value = []
-  } else {
-    rows.value = (data ?? []).map((row) => ({
-      id: row.id,
-      title: row.title,
-      date: formatNoticeDate(row.created_at),
-      views: row.view_count ?? 0,
-      isImportant: Boolean(row.is_hot),
-      hasAttachment: Boolean(row.has_file),
-    }))
+    loading.value = true
+    fetchError.value = null
+  
+    // 컬럼명은 실제 테이블에 맞게 수정 (없는 컬럼은 select/map에서 빼기)
+    const { data, error: sbError } = await supabase
+      .from('notice')
+      .select('id, title, created_at, views, is_important, has_attachment')
+      .order('created_at', { ascending: false })
+  
+    if (sbError) {
+      fetchError.value = sbError.message
+      rows.value = []
+    } else {
+      rows.value = (data ?? []).map((row) => ({
+        id: row.id,
+        title: row.title,
+        date: formatNoticeDate(row.created_at),
+        views: row.views ?? 0,
+        isImportant: Boolean(row.is_important),
+        hasAttachment: Boolean(row.has_attachment),
+      }))
+    }
+    loading.value = false
   }
-  loading.value = false
-}
   
   const isMobile = ref(false)
   const searchVal = ref('')
