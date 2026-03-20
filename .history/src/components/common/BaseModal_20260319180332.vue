@@ -8,14 +8,12 @@
     >
         <h3 id="modal-banner-title" class="visually-hidden">모달 배너</h3>
         
-        <div class="base-modal-banner" @mouseenter="stop" @mouseleave="start">
-            <!-- banner img: trackStyle = useSlider 가 주는 width / translateX -->
-             <div class="base-modal-banner--wrap" :style="trackStyle" aria-live="off">
+        <div class="base-modal-banner" @mouseenter="stopAutoPlay" @mouseleave="startAutoPlay">
+            <!-- banner img -->
+             <div class="base-modal-banner--wrap" :style="bannerSlideStyle" aria-live="off">
                 <div
                 class="base-modal-banner__img"
-                v-for="(banner, idx) in banners"
-                :key="idx"
-                :style="{ flex: `0 0 ${100 / len}%` }"
+                v-for="(banner, idx) in banners" :key="idx"
                 >
                     <a :href="banner.href" target="_blank">
                         <img :src="$getImg(banner.src)" :alt="banner.alt">
@@ -25,11 +23,11 @@
             <!-- /banner img -->
 
             <!-- indicator -->
-            <nav class="base-modal-banner__indicator" v-if="showNav">
+            <nav class="base-modal-banner__indicator" v-if="banners.length < 1">
                 <button type="button" class="indicator-btn indicator-btn--left" @click="gotoBanner(-1)" :disabled="disableIndicator.left">
                     <span class="visually-hidden">이전 배너</span>
                 </button>
-                <span class="indicator-item--count">{{ currentIndex + 1 }}/{{ len }}</span>
+                <span class="indicator-item--count">{{ currentIndex + 1 }}/{{ banners.length }}</span>
                 <button type="button" class="indicator-btn indicator-btn--right" @click="gotoBanner(1)" :disabled="disableIndicator.right">
                     <span class="visually-hidden">다음 배너</span>
                 </button>
@@ -47,9 +45,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useSlider } from '@/composables/useSlider';
-
-const isShow = ref(true);
+ 
+const isShow =ref(true);
 // 닫기
 const hideModal = () => {
     isShow.value = false;
@@ -64,13 +61,12 @@ onMounted(() => {
     if(!expiryDate || today.getTime() > parseInt(expiryDate)){
         isShow.value = true;
     } else {
-
         // false로 설정, 임시 true
         isShow.value = true;
     }
 
-    // 자동 재생 시작 (useSlider)
-    start();
+    // 자동 재생 시작
+    startAutoPlay();
 })
 
 const hideModalToday = () => {
@@ -82,41 +78,49 @@ const hideModalToday = () => {
     isShow.value = false;
 }
 
-// 배너 이미지 (ref 로 두고 useSlider 에 넘김 → 개수 변경에도 반응)
+// 배너 이미지
 const banners = ref([
-    { src: 'main_banner_02.png', alt: '모달 배너 이미지2', href: 'https://mgdshop.co.kr/main/index.do' },
-     { src: 'main_banner_02.png', alt: '모달 배너 이미지2', href: 'https://mgdshop.co.kr/main/index.do' },
-]);
+    {src: 'main_banner_01.png', alt: '모달 배너 이미지1', href: ''},
+    {src: 'main_banner_02.png', alt: '모달 배너 이미지2', href: 'https://mgdshop.co.kr/main/index.do'},
+])
 
-const {
-    currentIndex,
-    len,
-    showNav,
-    trackStyle,
-    next,
-    prev,
-    start,
-    stop,
-} = useSlider(banners, {
-    loop: true,
-    autoplay: true,
-    interval: 3000,
-});
-
-// 자동 재생은 루프(loop)지만, 버튼은 끝/처음에서 막기 (기존 UX 유지)
-const gotoBanner = (dir) => {
-    const n = len.value;
-    if (dir === 1) {
-        if (currentIndex.value < n - 1) currentIndex.value += 1;
-    } else {
-        if (currentIndex.value > 0) currentIndex.value -= 1;
-    }
+const currentIndex = ref(0);
+let bannerTimer = null;
+const nextSlide = () => {
+  const len = banners.value.length;
+  // $$currentIndex.value = (조건) ? (참일 때 값) : (거짓일 때 값);$$
+  currentIndex.value = currentIndex.value < len - 1 ? currentIndex.value + 1 : 0;
 };
+const startAutoPlay = () => {
+      if (bannerTimer) return;
+      if (banners.value.length < 2) return; // 1개면 굳이 안 돌림
+      bannerTimer = setInterval(nextSlide, 3000);
+    };
+
+const stopAutoPlay = () => {
+  if (!bannerTimer) return;
+  clearInterval(bannerTimer);
+  bannerTimer = null;
+};
+
+const bannerSlideStyle = computed(() => ({
+    transform: `translateX(-${currentIndex.value * 50}%)`,
+    transition: 'transform 0.5s ease-in-out'
+}))
+const gotoBanner = (dir) => {
+    const len = banners.value.length;
+    if(dir === 1){
+        currentIndex.value = currentIndex.value < len - 1 ? currentIndex.value + 1 : 0;
+    } else {
+        currentIndex.value = currentIndex.value > 0 ? currentIndex.value - 1 : len - 1;
+    }
+}
+
 
 const disableIndicator = computed(() => ({
     left: currentIndex.value === 0,
-    right: currentIndex.value === len.value - 1,
-}));
+    right: currentIndex.value === banners.value.length - 1,
+}))
 </script>
 
 <style lang="scss" scoped>
@@ -146,9 +150,10 @@ const disableIndicator = computed(() => ({
         background: #eee;
         .base-modal-banner--wrap{
             display: flex;
-            /* width / transform 은 useSlider trackStyle 인라인으로 제어 */
+            width: 200%;
             height: 100%;
             .base-modal-banner__img{
+                width: 100%;
                 max-height: 100%;
                 img{
                     width: 100%;

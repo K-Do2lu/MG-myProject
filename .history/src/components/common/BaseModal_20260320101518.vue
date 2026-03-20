@@ -85,7 +85,7 @@ const hideModalToday = () => {
 // 배너 이미지 (ref 로 두고 useSlider 에 넘김 → 개수 변경에도 반응)
 const banners = ref([
     { src: 'main_banner_02.png', alt: '모달 배너 이미지2', href: 'https://mgdshop.co.kr/main/index.do' },
-     { src: 'main_banner_02.png', alt: '모달 배너 이미지2', href: 'https://mgdshop.co.kr/main/index.do' },
+    
 ]);
 
 const {
