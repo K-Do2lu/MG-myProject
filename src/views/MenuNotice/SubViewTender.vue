@@ -17,11 +17,13 @@
                 </template>
               </BaseInput>
             </div>
+            <p v-if="loading" class="notice-loading" role="status" aria-label="불러오는 중">불러오는 중…</p>
+            <p v-else-if="fetchError" class="notice-error">{{ fetchError }}</p>
             <div class="notice-count">총 <em>{{ rows.length }}</em>건</div>
   
             <BaseTable
               :rows="rows"
-              caption="공지사항 목록"
+              caption="입찰공고 목록"
               empty-text="데이터가 없습니다."
               :page-size="7"
               :colspan="isMobile ? 3 : 1"
@@ -137,11 +139,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   if (mq) mq.removeEventListener('change', updateIsMobile)
 })
-  
-  onBeforeUnmount(() => {
-    if (mq) mq.removeEventListener('change', updateIsMobile)
-  })
-  
 </script>
 
 <style scoped></style>

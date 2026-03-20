@@ -61,12 +61,11 @@ onMounted(() => {
     const today = new Date();
 
     // 저장된 날짜가 없거나, 저장된 날짜가 현재 시감보다 과거라면? -> 팝업 보여줌
-    if(!expiryDate || today.getTime() > parseInt(expiryDate)){
+    // 만료 없음·만료 지남 → 모달 표시 / 아직 유효(오늘 그만보기) → 숨김
+    if (!expiryDate || today.getTime() > parseInt(expiryDate, 10)) {
         isShow.value = true;
     } else {
-
-        // false로 설정, 임시 true
-        isShow.value = true;
+        isShow.value = false;
     }
 
     // 자동 재생 시작 (useSlider)

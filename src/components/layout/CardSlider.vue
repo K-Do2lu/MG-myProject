@@ -89,13 +89,17 @@ const prevSlide = () => {
 
 // 자동 재생 시작
 const startAutoPlay = () => {
-    timer = setInterval(() => {
-        nextSlide();
-    }, 3000);
-}
+  if (timer) return;
+  timer = setInterval(() => {
+    nextSlide();
+  }, 3000);
+};
 // 자동 재생 정지 (사용자가 버튼을 누르거나 마우스를 올렸을 때 대비)
 const stopAutoPlay = () => {
-  if (timer) clearInterval(timer);
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
 };
 
 // [중요] 컴포넌트가 마운트될 때 시작, 사라질 때 정지
@@ -107,7 +111,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopAutoPlay(); // 메모리 누수 방지!
-  indow.removeEventListener('resize', updateViewCount);
+  window.removeEventListener('resize', updateViewCount);
 });
 
   </script>
