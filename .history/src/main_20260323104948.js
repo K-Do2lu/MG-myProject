@@ -21,7 +21,7 @@ import BaseCard from '@/components/common/BaseCard.vue'
 import CardSlider from '@/components/layout/CardSlider.vue'
 import CardHover from '@/components/layout/CardHover.vue'
 import BaseModal from '@/components/common/BaseModal.vue'
-import BoardDetail from '@/components/layout/BoardDetail.vue'
+
 
 const app = createApp(App);
 
@@ -41,5 +41,4 @@ app.component ('BaseCard', BaseCard)
 app.component ('CardSlider', CardSlider)
 app.component ('CardHover', CardHover)
 app.component ('BaseModal', BaseModal)
-app.component ('BoardDetail', BoardDetail)
 app.config.globalProperties.$getImg = getImg

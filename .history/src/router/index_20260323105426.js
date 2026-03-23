@@ -37,6 +37,7 @@ export default createRouter({
      component: () => import("@/views/MenuCompany/SubViewCompany.vue")},
     { path: "/sub2", name: 'ViewBusiness', component: () => import("@/views/MenuBusiness/SubViewBusiness.vue")},
     { path: "/sub3", name: 'ViewNotice', component: () => import("@/views/MenuNotice/SubViewNotice.vue")},
+     
 
     { path: "/sub4", name: 'ViewRecruit', component: () => import("@/views/MenuRecruit/SubViewRecruit.vue")},
 

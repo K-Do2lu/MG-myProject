@@ -41,5 +41,4 @@ app.component ('BaseCard', BaseCard)
 app.component ('CardSlider', CardSlider)
 app.component ('CardHover', CardHover)
 app.component ('BaseModal', BaseModal)
-app.component ('BoardDetail', BoardDetail)
 app.config.globalProperties.$getImg = getImg

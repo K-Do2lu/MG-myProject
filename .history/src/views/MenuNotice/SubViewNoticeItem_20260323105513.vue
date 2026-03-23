@@ -1,15 +1,10 @@
 <template>
-  <div class="tab-page tab-page--tender">
-    <SubViewTenderDetail
-      v-if="detailId != null"
-      :post-id="detailId"
-      @close="detailId = null"
-    />
-    <div v-else class="tab-page-inner inner--tender">
-      <div class="content tender">
-        <h2 class="sub-title">입찰공고</h2>
-         <!-- table -->
-         <div class="notice-table">
+    <div class="tab-page tab-page--notice">
+      <div class="tab-page-inner inner--notice">
+        <div class="content notice">
+          <h2 class="sub-title">공지사항</h2>
+          <!-- table -->
+          <div class="notice-table">
             <div v-if="search" class="notice-search">
               <BaseSelect
                 v-model="regionVal"
@@ -22,13 +17,13 @@
                 </template>
               </BaseInput>
             </div>
-            <p v-if="loading" class="notice-loading" role="status" aria-label="불러오는 중">불러오는 중…</p>
+            <p v-if="loading" class="notice-loading">불러오는 중…</p>
             <p v-else-if="fetchError" class="notice-error">{{ fetchError }}</p>
             <div class="notice-count">총 <em>{{ rows.length }}</em>건</div>
   
             <BaseTable
               :rows="rows"
-              caption="입찰공고 목록"
+              caption="공지사항 목록"
               empty-text="데이터가 없습니다."
               :page-size="7"
               :colspan="isMobile ? 3 : 1"
@@ -48,15 +43,7 @@
               <template #row="{ row }">
                 <td class="title" :colspan="isMobile ? 3 : 1" scope="row">
                   <div class="notice-title">
-                    <button
-                      v-if="row.id != null && row.id !== ''"
-                      type="button"
-                      class="notice-title__text notice-title__btn"
-                      @click="openDetail(row)"
-                    >
-                      {{ row.title }}
-                    </button>
-                    <span v-else class="notice-title__text">{{ row.title }}</span>
+                    <a href="#" class="notice-title__text" @click.prevent>{{ row.title }}</a>
                     <span v-if="row.hasAttachment" class="notice-title__icon">
                       <img src="/src/assets/images/icons/ico_file.svg" alt="첨부파일 있음">
                     </span>
@@ -80,45 +67,38 @@
               </template>
             </BaseTable>
           </div>
+        </div>
       </div>
+      
     </div>
-  </div>
-</template>
-
-<script setup>
-import { ref, onBeforeUnmount, onMounted } from 'vue'
-import { supabase } from '@/supabase'
-import SubViewTenderDetail from '@/views/MenuNotice/SubViewTenderDetail.vue'
-
-const detailId = ref(null)
-
-function openDetail(row) {
-  if (row?.id == null || row.id === '') return
-  detailId.value = row.id
-}
-
-const rows = ref([])
-const loading = ref(true)
-const fetchError = ref(null)
-
-function formatTenderDate(iso) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}.${m}.${day}`
-}
-
-async function loadTenders() {
+  </template>
+  
+  <script setup>
+  import { ref, onBeforeUnmount, onMounted } from 'vue'
+  import { supabase } from '@/supabase'
+  import
+  
+  const rows = ref([])
+  const loading = ref(true)
+  const fetchError = ref(null)
+  
+  /** DB의 날짜 컬럼(ISO 문자열) → 화면용 'YYYY.MM.DD' */
+  function formatNoticeDate(iso) {
+    if (!iso) return ''
+    const d = new Date(iso)
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}.${m}.${day}`
+  }
+  
+  async function loadNotices() {
   loading.value = true
   fetchError.value = null
-
   const { data, error: sbError } = await supabase
-    .from('tender') // Supabase 실제 테이블명으로 변경
-    .select('id, title, created_at, content, view_count, is_hot, has_file')
+    .from('notice')
+    .select('*')
     .order('created_at', { ascending: false })
-
   if (sbError) {
     fetchError.value = sbError.message
     rows.value = []
@@ -126,7 +106,7 @@ async function loadTenders() {
     rows.value = (data ?? []).map((row) => ({
       id: row.id,
       title: row.title,
-      date: formatTenderDate(row.created_at),
+      date: formatNoticeDate(row.created_at),
       views: row.view_count ?? 0,
       isImportant: Boolean(row.is_hot),
       hasAttachment: Boolean(row.has_file),
@@ -134,49 +114,32 @@ async function loadTenders() {
   }
   loading.value = false
 }
-
-const isMobile = ref(false)
-const searchVal = ref('')
-const regionVal = ref('')
-const regionOptions = [
-  { value: 'title', label: '제목' },
-  { value: 'content', label: '내용' },
-]
-const search = ref(true)
-
-let mq
-const updateIsMobile = () => {
-  if (!mq) return
-  isMobile.value = mq.matches
-}
-
-onMounted(() => {
-  loadTenders()
-  mq = window.matchMedia('(max-width: 500px)')
-  updateIsMobile()
-  mq.addEventListener('change', updateIsMobile)
-})
-
-onBeforeUnmount(() => {
-  if (mq) mq.removeEventListener('change', updateIsMobile)
-})
-</script>
-
-<style scoped>
-.notice-title__btn {
-  border: none;
-  background: none;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  text-align: inherit;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-}
-.notice-title__btn:hover {
-  text-decoration: underline;
-}
-</style>
+  
+  const isMobile = ref(false)
+  const searchVal = ref('')
+  const regionVal = ref('')
+  const regionOptions = [
+    { value: 'title', label: '제목' },
+    { value: 'content', label: '내용' },
+  ]
+  const search = ref(true)
+  
+  let mq
+  const updateIsMobile = () => {
+    if (!mq) return
+    isMobile.value = mq.matches
+  }
+  
+  onMounted(() => {
+    loadNotices()
+    mq = window.matchMedia('(max-width: 500px)')
+    updateIsMobile()
+    mq.addEventListener('change', updateIsMobile)
+  })
+  
+  onBeforeUnmount(() => {
+    if (mq) mq.removeEventListener('change', updateIsMobile)
+  })
+  </script>
+  
+  <style scoped></style>

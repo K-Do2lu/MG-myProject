@@ -1,7 +1,13 @@
 <template>
     <div class="tab-page tab-page--notice">
-      <div class="tab-page-inner inner--notice">
+      <SubViewNoticeDetail
+        v-if="detailId != null"
+        :post-id="detailId"
+        @close="detailId = null"
+      />
+      <div v-else class="tab-page-inner inner--notice">
         <div class="content notice">
+
           <h2 class="sub-title">공지사항</h2>
           <!-- table -->
           <div class="notice-table">
@@ -43,7 +49,15 @@
               <template #row="{ row }">
                 <td class="title" :colspan="isMobile ? 3 : 1" scope="row">
                   <div class="notice-title">
-                    <a href="#" class="notice-title__text" @click.prevent>{{ row.title }}</a>
+                    <button
+                      v-if="row.id != null && row.id !== ''"
+                      type="button"
+                      class="notice-title__text notice-title__btn"
+                      @click="openDetail(row)"
+                    >
+                      {{ row.title }}
+                    </button>
+                    <span v-else class="notice-title__text">{{ row.title }}</span>
                     <span v-if="row.hasAttachment" class="notice-title__icon">
                       <img src="/src/assets/images/icons/ico_file.svg" alt="첨부파일 있음">
                     </span>
@@ -76,7 +90,15 @@
   <script setup>
   import { ref, onBeforeUnmount, onMounted } from 'vue'
   import { supabase } from '@/supabase'
-  
+  import SubViewNoticeDetail from '@/views/MenuNotice/SubViewNoticeDetail.vue'
+
+  const detailId = ref(null)
+
+  function openDetail(row) {
+    if (row?.id == null || row.id === '') return
+    detailId.value = row.id
+  }
+
   const rows = ref([])
   const loading = ref(true)
   const fetchError = ref(null)
@@ -141,4 +163,21 @@
   })
   </script>
   
-  <style scoped></style>
+  <style scoped>
+  .notice-title__btn {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .notice-title__btn:hover {
+    text-decoration: underline;
+  }
+  </style>
