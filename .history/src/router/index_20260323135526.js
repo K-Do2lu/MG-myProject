@@ -29,6 +29,14 @@ export default createRouter({
       redirect: '/guide/color', // /guide 접속 시 자동으로 color 가이드로 이동
       children: guideChildren // 2. 여기에 자동 생성된 자식 라우트 주입
     },
+    { 
+      path: "/admin", 
+      name: 'Admin', 
+      component: () => import("@/views/admin/Admin.vue"), // 메인 레이아웃
+      meta: { hideHeaderFooter: true },
+      redirect: '/guide/color', // /guide 접속 시 자동으로 color 가이드로 이동
+      children: guideChildren // 2. 여기에 자동 생성된 자식 라우트 주입
+    },
     { path: "/", name: 'MainView', component: MainView },
 
 
@@ -39,25 +47,6 @@ export default createRouter({
     { path: "/sub3", name: 'ViewNotice', component: () => import("@/views/MenuNotice/SubViewNotice.vue")},
 
     { path: "/sub4", name: 'ViewRecruit', component: () => import("@/views/MenuRecruit/SubViewRecruit.vue")},
-
-    { path: "/admin", redirect: { path: "/admin/board", query: { board: "notice" } } },
-
-    {
-      path: "/admin/board",
-      name: "AdminBoard",
-      component: () => import("@/views/admin/AdminBoardHub.vue"),
-      meta: { hideHeaderFooter: true, requireAuth: false },
-    },
-    {
-      path: "/admin/board/notice",
-      name: "AdminBoardNotice",
-      redirect: { path: "/admin/board", query: { board: "notice" } },
-    },
-    {
-      path: "/admin/board/tender",
-      name: "AdminBoardTender",
-      redirect: { path: "/admin/board", query: { board: "tender" } },
-    },
 
 
     { path: "/footer/privacy", name: 'FooterSubPrivacy', component: () => import("@/views/FooterSubPrivacy.vue") },

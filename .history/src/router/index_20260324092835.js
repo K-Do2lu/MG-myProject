@@ -40,24 +40,19 @@ export default createRouter({
 
     { path: "/sub4", name: 'ViewRecruit', component: () => import("@/views/MenuRecruit/SubViewRecruit.vue")},
 
-    { path: "/admin", redirect: { path: "/admin/board", query: { board: "notice" } } },
 
-    {
-      path: "/admin/board",
-      name: "AdminBoard",
-      component: () => import("@/views/admin/AdminBoardHub.vue"),
-      meta: { hideHeaderFooter: true, requireAuth: false },
-    },
     {
       path: "/admin/board/notice",
       name: "AdminBoardNotice",
-      redirect: { path: "/admin/board", query: { board: "notice" } },
+      component: () => import("@/views/admin/board/NoticeBoard.vue"),
+      meta: {requireAuth: true},
     },
     {
       path: "/admin/board/tender",
-      name: "AdminBoardTender",
-      redirect: { path: "/admin/board", query: { board: "tender" } },
-    },
+      name: "AdminBoardNotice",
+      component: () => import("@/views/admin/board/NoticeBoard.vue"),
+      meta: {requireAuth: true},
+    },    
 
 
     { path: "/footer/privacy", name: 'FooterSubPrivacy', component: () => import("@/views/FooterSubPrivacy.vue") },

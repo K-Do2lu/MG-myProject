@@ -1,15 +1,16 @@
 <template>
-  <div class="tab-page tab-page--tender">
-    <SubViewTenderDetail
-      v-if="detailId != null"
-      :post-id="detailId"
-      @close="detailId = null"
-    />
-    <div v-else class="tab-page-inner inner--tender">
-      <div class="content tender">
-        <h2 class="sub-title">입찰공고</h2>
-         <!-- table -->
-         <div class="notice-table">
+    <div class="tab-page tab-page--notice">
+      <SubViewNoticeDetail
+        v-if="detailId != null"
+        :post-id="detailId"
+        @close="detailId = null"
+      />
+      <div v-else class="tab-page-inner inner--notice">
+        <div class="content notice">
+
+          <h2 class="sub-title">공지사항</h2>
+          <!-- table -->
+          <div class="notice-table">
             <div v-if="search" class="notice-search">
               <BaseSelect
                 v-model="regionVal"
@@ -22,13 +23,13 @@
                 </template>
               </BaseInput>
             </div>
-            <p v-if="loading" class="notice-loading" role="status" aria-label="불러오는 중">불러오는 중…</p>
+            <p v-if="loading" class="notice-loading">불러오는 중…</p>
             <p v-else-if="fetchError" class="notice-error">{{ fetchError }}</p>
             <div class="notice-count">총 <em>{{ rows.length }}</em>건</div>
   
             <BaseTable
               :rows="rows"
-              caption="입찰공고 목록"
+              caption="공지사항 목록"
               empty-text="데이터가 없습니다."
               :page-size="7"
               :colspan="isMobile ? 3 : 1"
@@ -79,47 +80,51 @@
                 <td v-if="!isMobile" scope="row" class="num">{{ row.views }}</td>
               </template>
             </BaseTable>
+
+            <!-- write Btn -->
+             <div class="write-btn">
+              <button type=""></button>
+             </div>
           </div>
+        </div>
       </div>
+      
     </div>
-  </div>
-</template>
+  </template>
+  
+  <script setup>
+  import { ref, onBeforeUnmount, onMounted } from 'vue'
+  import { supabase } from '@/supabase'
+  import SubViewNoticeDetail from '@/views/MenuNotice/SubViewNoticeDetail.vue'
 
-<script setup>
-import { ref, watch, onBeforeUnmount, onMounted } from 'vue'
-import { supabase } from '@/supabase'
-import SubViewTenderDetail from '@/views/MenuNotice/SubViewTenderDetail.vue'
-import { normalizeAttachmentsFromRow } from '@/utils/boardAttachments'
+  const detailId = ref(null)
 
-const detailId = ref(null)
+  function openDetail(row) {
+    if (row?.id == null || row.id === '') return
+    detailId.value = row.id
+  }
 
-function openDetail(row) {
-  if (row?.id == null || row.id === '') return
-  detailId.value = row.id
-}
-
-const rows = ref([])
-const loading = ref(true)
-const fetchError = ref(null)
-
-function formatTenderDate(iso) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}.${m}.${day}`
-}
-
-async function loadTenders() {
+  const rows = ref([])
+  const loading = ref(true)
+  const fetchError = ref(null)
+  
+  /** DB의 날짜 컬럼(ISO 문자열) → 화면용 'YYYY.MM.DD' */
+  function formatNoticeDate(iso) {
+    if (!iso) return ''
+    const d = new Date(iso)
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}.${m}.${day}`
+  }
+  
+  async function loadNotices() {
   loading.value = true
   fetchError.value = null
-
   const { data, error: sbError } = await supabase
-    .from('tender') // Supabase 실제 테이블명으로 변경
+    .from('notice')
     .select('*')
     .order('created_at', { ascending: false })
-
   if (sbError) {
     fetchError.value = sbError.message
     rows.value = []
@@ -127,70 +132,57 @@ async function loadTenders() {
     rows.value = (data ?? []).map((row) => ({
       id: row.id,
       title: row.title,
-      date: formatTenderDate(row.created_at),
+      date: formatNoticeDate(row.created_at),
       views: row.view_count ?? 0,
       isImportant: Boolean(row.is_hot),
-      hasAttachment: normalizeAttachmentsFromRow(row).length > 0,
+      hasAttachment: Boolean(row.has_file),
     }))
   }
   loading.value = false
 }
-
-const isMobile = ref(false)
-const searchVal = ref('')
-const regionVal = ref('')
-const regionOptions = [
-  { value: 'title', label: '제목' },
-  { value: 'content', label: '내용' },
-]
-const search = ref(true)
-
-let mq
-const updateIsMobile = () => {
-  if (!mq) return
-  isMobile.value = mq.matches
-}
-
-watch(detailId, (id, prev) => {
-  if (id == null && prev != null) {
-    loadTenders()
+  
+  const isMobile = ref(false)
+  const searchVal = ref('')
+  const regionVal = ref('')
+  const regionOptions = [
+    { value: 'title', label: '제목' },
+    { value: 'content', label: '내용' },
+  ]
+  const search = ref(true)
+  
+  let mq
+  const updateIsMobile = () => {
+    if (!mq) return
+    isMobile.value = mq.matches
   }
-})
-
-function onPageVisible() {
-  if (typeof document === 'undefined' || document.visibilityState !== 'visible') return
-  loadTenders()
-}
-
-onMounted(() => {
-  loadTenders()
-  mq = window.matchMedia('(max-width: 500px)')
-  updateIsMobile()
-  mq.addEventListener('change', updateIsMobile)
-  document.addEventListener('visibilitychange', onPageVisible)
-})
-
-onBeforeUnmount(() => {
-  if (mq) mq.removeEventListener('change', updateIsMobile)
-  document.removeEventListener('visibilitychange', onPageVisible)
-})
-</script>
-
-<style scoped>
-.notice-title__btn {
-  border: none;
-  background: none;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  text-align: inherit;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-}
-.notice-title__btn:hover {
-  text-decoration: underline;
-}
-</style>
+  
+  onMounted(() => {
+    loadNotices()
+    mq = window.matchMedia('(max-width: 500px)')
+    updateIsMobile()
+    mq.addEventListener('change', updateIsMobile)
+  })
+  
+  onBeforeUnmount(() => {
+    if (mq) mq.removeEventListener('change', updateIsMobile)
+  })
+  </script>
+  
+  <style scoped>
+  .notice-title__btn {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .notice-title__btn:hover {
+    text-decoration: underline;
+  }
+  </style>

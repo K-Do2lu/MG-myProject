@@ -40,28 +40,12 @@ export default createRouter({
 
     { path: "/sub4", name: 'ViewRecruit', component: () => import("@/views/MenuRecruit/SubViewRecruit.vue")},
 
-    { path: "/admin", redirect: { path: "/admin/board", query: { board: "notice" } } },
-
-    {
-      path: "/admin/board",
-      name: "AdminBoard",
-      component: () => import("@/views/admin/AdminBoardHub.vue"),
-      meta: { hideHeaderFooter: true, requireAuth: false },
-    },
-    {
-      path: "/admin/board/notice",
-      name: "AdminBoardNotice",
-      redirect: { path: "/admin/board", query: { board: "notice" } },
-    },
-    {
-      path: "/admin/board/tender",
-      name: "AdminBoardTender",
-      redirect: { path: "/admin/board", query: { board: "tender" } },
-    },
-
 
     { path: "/footer/privacy", name: 'FooterSubPrivacy', component: () => import("@/views/FooterSubPrivacy.vue") },
     { path: "/footer/terms", name: 'FooterSubTerms', component: () => import("@/views/FooterSubTerms.vue") },
     { path: "/footer/email", name: 'FooterSubEmail', component: () => import("@/views/FooterSubEmail.vue") },
+
+
+    { path: "/admin/board/edit", name: 'AdminBoardEdit', component: () => import("@/views/admin/AdminBoardEdit.vue")},
   ],
 });

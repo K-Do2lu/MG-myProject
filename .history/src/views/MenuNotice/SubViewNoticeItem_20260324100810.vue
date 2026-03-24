@@ -61,6 +61,16 @@
                     <span v-if="row.hasAttachment" class="notice-title__icon">
                       <img src="/src/assets/images/icons/ico_file.svg" alt="첨부파일 있음">
                     </span>
+                    <a
+                      v-if="row.downloadUrl"
+                      :href="row.downloadUrl"
+                      class="notice-title__download"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      @click.stop
+                    >
+                      {{ row.attachmentName || '첨부 다운로드' }}
+                    </a>
                     <span v-if="row.isImportant" class="notice-title__badge" role="status" aria-label="중요 게시물">HOT</span>
                   </div>
                   <div class="notice-num">
@@ -88,10 +98,10 @@
   </template>
   
   <script setup>
-  import { ref, watch, onBeforeUnmount, onMounted } from 'vue'
+  import { ref, onBeforeUnmount, onMounted } from 'vue'
   import { supabase } from '@/supabase'
   import SubViewNoticeDetail from '@/views/MenuNotice/SubViewNoticeDetail.vue'
-  import { normalizeAttachmentsFromRow } from '@/utils/boardAttachments'
+  import { getBoardAttachmentPublicUrl } from '@/utils/boardStorage'
 
   const detailId = ref(null)
 
@@ -125,14 +135,20 @@
     fetchError.value = sbError.message
     rows.value = []
   } else {
-    rows.value = (data ?? []).map((row) => ({
-      id: row.id,
-      title: row.title,
-      date: formatNoticeDate(row.created_at),
-      views: row.view_count ?? 0,
-      isImportant: Boolean(row.is_hot),
-      hasAttachment: normalizeAttachmentsFromRow(row).length > 0,
-    }))
+    rows.value = (data ?? []).map((row) => {
+      const path = row.attachment_path
+      return {
+        id: row.id,
+        title: row.title,
+        date: formatNoticeDate(row.created_at),
+        views: row.view_count ?? 0,
+        isImportant: Boolean(row.is_hot),
+        hasAttachment: Boolean(row.has_file),
+        attachmentPath: path || null,
+        attachmentName: row.attachment_name || '',
+        downloadUrl: path ? getBoardAttachmentPublicUrl(path) : '',
+      }
+    })
   }
   loading.value = false
 }
@@ -152,29 +168,15 @@
     isMobile.value = mq.matches
   }
   
-  /** 상세에서 목록으로 돌아올 때 / 다른 탭에서 관리자 수정 후 복귀 시 최신 반영 */
-  watch(detailId, (id, prev) => {
-    if (id == null && prev != null) {
-      loadNotices()
-    }
-  })
-
-  function onPageVisible() {
-    if (typeof document === 'undefined' || document.visibilityState !== 'visible') return
-    loadNotices()
-  }
-
   onMounted(() => {
     loadNotices()
     mq = window.matchMedia('(max-width: 500px)')
     updateIsMobile()
     mq.addEventListener('change', updateIsMobile)
-    document.addEventListener('visibilitychange', onPageVisible)
   })
   
   onBeforeUnmount(() => {
     if (mq) mq.removeEventListener('change', updateIsMobile)
-    document.removeEventListener('visibilitychange', onPageVisible)
   })
   </script>
   
@@ -194,5 +196,20 @@
   }
   .notice-title__btn:hover {
     text-decoration: underline;
+  }
+
+  .notice-title__download {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: #1565c0;
+    text-decoration: underline;
+    max-width: 42%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .notice-title__download:hover {
+    color: #0d47a1;
   }
   </style>

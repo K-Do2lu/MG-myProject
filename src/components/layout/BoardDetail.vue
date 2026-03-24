@@ -31,17 +31,50 @@
         <p v-else class="board-detail__empty">등록된 본문이 없습니다.</p>
       </div>
 
+      <section class="board-detail__attachment" aria-label="첨부파일 목록">
+        <div class="board-detail__attachment-head">
+          <h3 class="board-detail__attachment-title">첨부파일 목록</h3>
+          <button
+            v-if="attachmentItems.length > 1"
+            type="button"
+            class="board-detail__btn-all"
+            :disabled="bulkDownloading"
+            @click="onDownloadAll"
+          >
+            {{ bulkDownloading ? 'ZIP 만드는 중…' : '전체 다운로드 (ZIP)' }}
+          </button>
+        </div>
+
+        <ul v-if="attachmentItems.length > 0" class="board-detail__attachment-list">
+          <li v-for="(item, idx) in attachmentItems" :key="item.path + idx" class="board-detail__attachment-row">
+            <span class="board-detail__attachment-filename">{{ item.name }}</span>
+            <button
+              type="button"
+              class="board-detail__btn-one"
+              :disabled="itemDownloading === idx"
+              @click="onDownloadOne(item, idx)"
+            >
+              {{ itemDownloading === idx ? '받는 중…' : '다운로드' }}
+            </button>
+          </li>
+        </ul>
+        <p v-else class="board-detail__attachment-empty">첨부파일이 없습니다.</p>
+      </section>
+
       <div class="board-detail__head">
-      <button type="button" class="board-detail__back" @click="$emit('back')">
-        목록으로
-      </button>
-    </div>
+        <button type="button" class="board-detail__back" @click="$emit('back')">
+          목록으로
+        </button>
+      </div>
     </template>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { downloadUrlAsFile, downloadAllAttachments } from '@/utils/attachmentDownload'
+import { getBoardAttachmentPublicUrl } from '@/utils/boardStorage'
 
 const props = defineProps({
   /** useBoardPostDetail mapRow 결과 또는 동일 shape */
@@ -52,7 +85,10 @@ const props = defineProps({
 
 defineEmits(['back'])
 
-/** 간단 이스케이프 — 추후 본문에 HTML 허용 시 DOMPurify 등으로 교체 */
+const bulkDownloading = ref(false)
+/** @type {import('vue').Ref<number | null>} */
+const itemDownloading = ref(null)
+
 const sanitizedContent = computed(() => {
   const t = props.post?.content
   if (!t) return ''
@@ -62,6 +98,39 @@ const sanitizedContent = computed(() => {
     .replace(/>/g, '&gt;')
     .replace(/\n/g, '<br>')
 })
+
+const attachmentItems = computed(() => {
+  const list = props.post?.attachments
+  return Array.isArray(list) ? list : []
+})
+
+async function onDownloadOne(item, idx) {
+  if (!item?.path) return
+  itemDownloading.value = idx
+  try {
+    const url = getBoardAttachmentPublicUrl(item.path)
+    await downloadUrlAsFile(url, item.name || '첨부파일')
+  } catch (e) {
+    ElMessage.error(e?.message || '다운로드에 실패했습니다.')
+  } finally {
+    itemDownloading.value = null
+  }
+}
+
+async function onDownloadAll() {
+  if (attachmentItems.value.length === 0) return
+  bulkDownloading.value = true
+  try {
+    await downloadAllAttachments(
+      attachmentItems.value,
+      props.post?.title || '첨부파일'
+    )
+  } catch (e) {
+    ElMessage.error(e?.message || '전체 다운로드에 실패했습니다.')
+  } finally {
+    bulkDownloading.value = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -131,7 +200,7 @@ const sanitizedContent = computed(() => {
   font-weight: 500;
   padding: 4px 8px;
   border-radius: 999px;
-  background: #FFA500;
+  background: #ffa500;
   color: #fff;
 }
 
@@ -167,5 +236,104 @@ const sanitizedContent = computed(() => {
 
 .board-detail__empty {
   color: #888;
+}
+
+.board-detail__attachment {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+
+.board-detail__attachment-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.board-detail__attachment-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: ab.$color-txt-main;
+}
+
+.board-detail__btn-all {
+  padding: 8px 14px;
+  border: 1px solid #1565c0;
+  border-radius: 8px;
+  background: #fff;
+  color: #1565c0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.board-detail__btn-all:hover:not(:disabled) {
+  background: #e3f2fd;
+}
+
+.board-detail__btn-all:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.board-detail__attachment-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.board-detail__attachment-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.board-detail__attachment-filename {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-all;
+  color: #333;
+}
+
+.board-detail__btn-one {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.board-detail__btn-one:hover:not(:disabled) {
+  border-color: #1565c0;
+  color: #1565c0;
+}
+
+.board-detail__btn-one:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.board-detail__attachment-empty {
+  margin: 0;
+  padding: 4px 0 0;
+  font-size: 14px;
+  color: #888;
+  line-height: 1.6;
 }
 </style>
