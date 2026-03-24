@@ -121,7 +121,6 @@ watch(hubTab, (tab) => {
   position: fixed;
   top: 0;
   width: 100%;
-  max-width: 926px;
   margin-bottom: 20px;
   z-index: 1000;
 }
