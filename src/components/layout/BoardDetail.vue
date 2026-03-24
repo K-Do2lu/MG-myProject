@@ -10,7 +10,13 @@
           <span v-if="post.hasAttachment" class="board-detail__icon" aria-hidden="true">
             <img src="@/assets/images/icons/ico_file.svg" alt="">
           </span>
-          <span v-if="post.isImportant" class="board-detail__badge" role="status">HOT</span>
+          <span
+            v-if="post.isImportant"
+            class="board-detail__badge"
+            role="status"
+            aria-label="중요 게시물"
+            >HOT</span
+          >
         </div>
         <dl class="board-detail__meta">
           <div>
@@ -39,6 +45,7 @@
             type="button"
             class="board-detail__btn-all"
             :disabled="bulkDownloading"
+            :aria-busy="bulkDownloading"
             @click="onDownloadAll"
           >
             {{ bulkDownloading ? 'ZIP 만드는 중…' : '전체 다운로드 (ZIP)' }}
@@ -52,6 +59,8 @@
               type="button"
               class="board-detail__btn-one"
               :disabled="itemDownloading === idx"
+              :aria-busy="itemDownloading === idx"
+              :aria-label="`${item.name || '첨부파일'} 다운로드`"
               @click="onDownloadOne(item, idx)"
             >
               {{ itemDownloading === idx ? '받는 중…' : '다운로드' }}
@@ -62,7 +71,12 @@
       </section>
 
       <div class="board-detail__head">
-        <button type="button" class="board-detail__back" @click="$emit('back')">
+        <button
+          type="button"
+          class="board-detail__back"
+          aria-label="목록으로 돌아가기"
+          @click="$emit('back')"
+        >
           목록으로
         </button>
       </div>

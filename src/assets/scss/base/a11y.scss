@@ -1,5 +1,32 @@
 @use "@scss/abstract" as ab;
 
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  z-index: 100000;
+  padding: 12px 20px;
+  background: ab.$color-txt-main;
+  color: ab.$color-scale-0;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transform: translateY(-120%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid ab.$color-primary-0;
+  outline-offset: 2px;
+}
+
+/** 스킵 링크로 본문(#container) 포커스 시에도 윤곽 표시 */
+#container:focus-visible {
+  outline: 2px solid ab.$color-primary-0;
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
@@ -14,7 +41,8 @@
 *:focus {
   outline: none;
 }
-[tabindex="-1"]:focus {
+/** 본문 스킵 링크 타깃은 위 #container:focus-visible 유지, 그 외 -1은 기본 이중 윤곽 방지 */
+[tabindex='-1']:focus:not(:focus-visible) {
   outline: none;
 }
 .visually-hidden {

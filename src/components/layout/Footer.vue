@@ -55,6 +55,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { ROUTES } from '@/constants/routes'
 
 const regionVal2 = ref('FamilySite')
 const regionOptions2 = [
@@ -68,9 +69,9 @@ const regionOptions2 = [
 ]
 
 const footerSubList = [
-  { name: '개인정보처리방침', path: '/footer/privacy' },
-  { name: '이용약관', path: '/footer/terms' },
-  { name: '이메일주소', path: '/footer/email' },
+  { name: '개인정보처리방침', path: ROUTES.FOOTER_PRIVACY },
+  { name: '이용약관', path: ROUTES.FOOTER_TERMS },
+  { name: '이메일주소', path: ROUTES.FOOTER_EMAIL },
 ]
 
 const infoList = [

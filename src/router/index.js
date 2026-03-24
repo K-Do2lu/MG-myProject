@@ -1,67 +1,91 @@
-import { createRouter, createWebHistory } from "vue-router";
-import MainView from "@/views/MainView.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import MainView from '@/views/MainView.vue'
+import { ROUTES } from '@/constants/routes'
 
-// 1. Guide 폴더 내의 모든 .vue 파일을 동적으로 가져옵니다.
-// (단, 메인 가이드 틀인 guide.vue는 제외하기 위해 필터링)
-const guideModules = import.meta.glob("@/views/Guide/*.vue");
+const guideModules = import.meta.glob('@/views/Guide/*.vue')
 
 const guideChildren = Object.keys(guideModules)
-  .filter((path) => !path.includes('guide.vue')) // 메인 틀 파일은 제외
+  .filter((path) => !path.includes('guide.vue'))
   .map((path) => {
-    const fileName = path.split('/').pop().replace('.vue', '');
-    const name = fileName.toLowerCase();
-    
+    const fileName = path.split('/').pop().replace('.vue', '')
+    const name = fileName.toLowerCase()
+
     return {
-      path: name, // 주소: /guide/button, /guide/color 등
+      path: name,
       name: `Guide${fileName}`,
-      component: guideModules[path]
-    };
-  });
+      component: guideModules[path],
+    }
+  })
 
 export default createRouter({
   history: createWebHistory(),
   routes: [
-    { 
-      path: "/guide", 
-      name: 'Guide', 
-      component: () => import("@/views/Guide/guide.vue"), // 메인 레이아웃
+    {
+      path: ROUTES.GUIDE,
+      name: 'Guide',
+      component: () => import('@/views/Guide/guide.vue'),
       meta: { hideHeaderFooter: true },
-      redirect: '/guide/color', // /guide 접속 시 자동으로 color 가이드로 이동
-      children: guideChildren // 2. 여기에 자동 생성된 자식 라우트 주입
+      redirect: `${ROUTES.GUIDE}/color`,
+      children: guideChildren,
     },
-    { path: "/", name: 'MainView', component: MainView },
-
-
-
-    { path: "/sub1", name: 'SubViewCompany',
-     component: () => import("@/views/MenuCompany/SubViewCompany.vue")},
-    { path: "/sub2", name: 'ViewBusiness', component: () => import("@/views/MenuBusiness/SubViewBusiness.vue")},
-    { path: "/sub3", name: 'ViewNotice', component: () => import("@/views/MenuNotice/SubViewNotice.vue")},
-
-    { path: "/sub4", name: 'ViewRecruit', component: () => import("@/views/MenuRecruit/SubViewRecruit.vue")},
-
-    { path: "/admin", redirect: { path: "/admin/board", query: { board: "notice" } } },
+    { path: ROUTES.HOME, name: 'MainView', component: MainView },
 
     {
-      path: "/admin/board",
-      name: "AdminBoard",
-      component: () => import("@/views/admin/AdminBoardHub.vue"),
+      path: ROUTES.COMPANY,
+      name: 'SubViewCompany',
+      component: () => import('@/views/MenuCompany/SubViewCompany.vue'),
+    },
+    {
+      path: ROUTES.BUSINESS,
+      name: 'ViewBusiness',
+      component: () => import('@/views/MenuBusiness/SubViewBusiness.vue'),
+    },
+    {
+      path: ROUTES.NOTICE,
+      name: 'ViewNotice',
+      component: () => import('@/views/MenuNotice/SubViewNotice.vue'),
+    },
+    {
+      path: ROUTES.RECRUIT,
+      name: 'ViewRecruit',
+      component: () => import('@/views/MenuRecruit/SubViewRecruit.vue'),
+    },
+
+    {
+      path: ROUTES.ADMIN,
+      redirect: { path: ROUTES.ADMIN_BOARD, query: { board: 'notice' } },
+    },
+    {
+      path: ROUTES.ADMIN_BOARD,
+      name: 'AdminBoard',
+      component: () => import('@/views/admin/AdminBoardHub.vue'),
       meta: { hideHeaderFooter: true, requireAuth: false },
     },
     {
-      path: "/admin/board/notice",
-      name: "AdminBoardNotice",
-      redirect: { path: "/admin/board", query: { board: "notice" } },
+      path: `${ROUTES.ADMIN_BOARD}/notice`,
+      name: 'AdminBoardNotice',
+      redirect: { path: ROUTES.ADMIN_BOARD, query: { board: 'notice' } },
     },
     {
-      path: "/admin/board/tender",
-      name: "AdminBoardTender",
-      redirect: { path: "/admin/board", query: { board: "tender" } },
+      path: `${ROUTES.ADMIN_BOARD}/tender`,
+      name: 'AdminBoardTender',
+      redirect: { path: ROUTES.ADMIN_BOARD, query: { board: 'tender' } },
     },
 
-
-    { path: "/footer/privacy", name: 'FooterSubPrivacy', component: () => import("@/views/FooterSubPrivacy.vue") },
-    { path: "/footer/terms", name: 'FooterSubTerms', component: () => import("@/views/FooterSubTerms.vue") },
-    { path: "/footer/email", name: 'FooterSubEmail', component: () => import("@/views/FooterSubEmail.vue") },
+    {
+      path: ROUTES.FOOTER_PRIVACY,
+      name: 'FooterSubPrivacy',
+      component: () => import('@/views/FooterSubPrivacy.vue'),
+    },
+    {
+      path: ROUTES.FOOTER_TERMS,
+      name: 'FooterSubTerms',
+      component: () => import('@/views/FooterSubTerms.vue'),
+    },
+    {
+      path: ROUTES.FOOTER_EMAIL,
+      name: 'FooterSubEmail',
+      component: () => import('@/views/FooterSubEmail.vue'),
+    },
   ],
-});
+})

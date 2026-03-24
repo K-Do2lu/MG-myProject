@@ -1,7 +1,12 @@
 <template>
   <div class="form-field">
     <label class="form-field__label">
-      <span class="form-field__label-text" :id="`${fieldId}-label`">{{ label }}</span>
+      <span
+        v-if="label"
+        class="form-field__label-text"
+        :id="`${fieldId}-label`"
+        >{{ label }}</span
+      >
 
       <div class="form-input">
         <span v-if="$slots.prefix" class="form-input__icon form-input__icon--prefix" aria-hidden="true">
@@ -14,6 +19,8 @@
           :value="modelValue"
           :placeholder="placeholder"
           :disabled="disabled"
+          :aria-label="inputAriaLabel"
+          :aria-labelledby="label ? `${fieldId}-label` : undefined"
           :aria-describedby="describedByIds"
           :aria-invalid="!!error"
           :required="required"
@@ -33,18 +40,25 @@
 </template>
 
 <script setup>
-
+import { computed } from 'vue'
 import { useFormField } from '@/composables/useFormField'
 
 // 1) props 정의 (자식이 부모한테 값을 받기 위해)
 const props = defineProps({
   modelValue: String,
   label: String,
+  /** 화면에 라벨이 없을 때 접근용 (placeholder만 있으면 보조기기에 부족할 수 있음) */
+  ariaLabel: String,
   placeholder: String,
   hint: String,
   error: String,
   required: Boolean,
   disabled: Boolean,
+})
+
+const inputAriaLabel = computed(() => {
+  if (props.label) return undefined
+  return props.ariaLabel || props.placeholder || undefined
 })
 
 // 2) emit 정의 (부모에 알릴 이벤트)

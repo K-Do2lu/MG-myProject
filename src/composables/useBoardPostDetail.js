@@ -2,15 +2,7 @@ import { ref, watch, unref } from 'vue'
 import { supabase } from '@/supabase'
 import { assertBoardTableKey } from '@/constants/boardTables'
 import { normalizeAttachmentsFromRow } from '@/utils/boardAttachments'
-
-function formatBoardDate(iso) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}.${m}.${day}`
-}
+import { formatBoardDate } from '@/utils/formatBoardDate'
 
 function mapRow(row) {
   if (!row) return null

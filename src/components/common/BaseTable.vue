@@ -26,7 +26,7 @@
         </tr>
 
         <tr v-if="pageRows.length === 0">
-          <td colspan="3" scope="row" class="empty" align="center">{{ emptyText }}</td>
+          <td :colspan="emptyColspan" class="empty" align="center">{{ emptyText }}</td>
         </tr>
       </tbody>
     </table>
@@ -36,7 +36,14 @@
       class="notice-pagination"
       aria-label="페이지"
     >
-      <button type="button" @click="goPrev" :disabled="currentPage === 1">이전</button>
+      <button
+        type="button"
+        aria-label="이전 페이지"
+        :disabled="currentPage === 1"
+        @click="goPrev"
+      >
+        이전
+      </button>
       <button
         v-for="page in totalPages"
         :key="page"
@@ -47,7 +54,14 @@
       >
         {{ page }}
       </button>
-      <button type="button" @click="goNext" :disabled="currentPage === totalPages">다음</button>
+      <button
+        type="button"
+        aria-label="다음 페이지"
+        :disabled="currentPage === totalPages"
+        @click="goNext"
+      >
+        다음
+      </button>
     </nav>
   </div>
 </template>
@@ -65,6 +79,8 @@ const props = defineProps({
     default: (row, index) => (row?.id != null ? row.id : index),
   },
   colspan: { type: Number, default: 1 },
+  /** 빈 목록 행이 차지할 열 수 (헤더 열 수와 맞출 것) */
+  emptyColspan: { type: Number, default: 3 },
 })
 
 const currentPage = ref(1)

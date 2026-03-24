@@ -43,7 +43,8 @@
 import { computed, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { supabase } from '@/supabase'
-import { assertBoardTableKey } from '@/constants/boardTables'
+import { assertBoardTableKey, getBoardUi } from '@/constants/boardTables'
+import { formatBoardDate } from '@/utils/formatBoardDate'
 import { normalizeAttachmentsFromRow } from '@/utils/boardAttachments'
 import { removeBoardStorageObjects } from '@/utils/boardStorage'
 
@@ -67,18 +68,7 @@ const loadError = ref('')
 /** @type {import('vue').Ref<{ id: unknown, title: string, createdLabel: string, is_hot: boolean, fileCount: number, _raw: Record<string, unknown> }[]>} */
 const rows = ref([])
 
-const listTitle = computed(() =>
-  props.boardType === 'notice' ? '공지사항 목록' : '입찰공고 목록'
-)
-
-function formatCreated(iso) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}-${m}-${day}`
-}
+const listTitle = computed(() => getBoardUi(props.boardType).adminListTitle)
 
 async function load() {
   let table
@@ -111,7 +101,7 @@ async function load() {
     return {
       id: row.id,
       title: row.title ?? '',
-      createdLabel: formatCreated(row.created_at),
+      createdLabel: formatBoardDate(row.created_at, { separator: '-' }),
       is_hot: Boolean(row.is_hot),
       fileCount: atts.length,
       _raw: row,

@@ -12,8 +12,8 @@
       <div class="admin-board-hub__picker">
         <span class="admin-board-hub__label">게시판 구분</span>
         <el-radio-group v-model="boardType" size="large">
-          <el-radio-button label="notice">공지사항 · notice</el-radio-button>
-          <el-radio-button label="tender">입찰공고 · tender</el-radio-button>
+          <el-radio-button label="notice">{{ BOARD_UI.notice.adminRadioLabel }}</el-radio-button>
+          <el-radio-button label="tender">{{ BOARD_UI.tender.adminRadioLabel }}</el-radio-button>
         </el-radio-group>
       </div>
     </el-card>
@@ -47,6 +47,8 @@
 <script setup>
 import { ref, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { ROUTES } from '@/constants/routes'
+import { BOARD_UI } from '@/constants/boardTables'
 import AdminBoardEdit from '@/views/admin/AdminBoardEdit.vue'
 import AdminBoardList from '@/views/admin/AdminBoardList.vue'
 
@@ -79,7 +81,7 @@ watch(boardType, (v, prev) => {
     hubTab.value = 'form'
   }
   if (route.query.board === v) return
-  router.replace({ path: '/admin/board', query: { board: v } })
+  router.replace({ path: ROUTES.ADMIN_BOARD, query: { board: v } })
 })
 
 function clearEdit() {
