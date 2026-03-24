@@ -124,3 +124,28 @@ create policy "tender_anon_all"
 
 - **SELECT** 정책은 있는데 **UPDATE** 가 없는 전형적인 경우입니다.  
 - 위 개발용 정책을 넣거나, Dashboard → **Authentication** → **Policies** 에서 `notice` / `tender` 에 **UPDATE** 행 추가합니다.
+
+---
+
+## 5. 조회수(`view_count`)
+
+### Supabase 대시보드만으로 “자동 조회수” 설정?
+
+**아니요.** Postgres/Supabase에는 **글을 읽을 때마다 자동으로 숫자를 올리는 스위치**가 없습니다.  
+(읽기 `SELECT` 에 붙는 트리거 같은 개념이 없어서, **한 번은** 앱이나 API가 “조회됐다”는 신호를 보내야 합니다.)
+
+### Supabase에서 할 수 있는 설정 (권장)
+
+1. Supabase → **SQL Editor** → New query  
+2. 프로젝트 파일 **`supabase/migrations/20260325120000_increment_board_view_count.sql`** 내용 전체를 붙여넣고 **Run**
+
+이렇게 **`increment_board_view_count` 함수(RPC)** 가 생깁니다.
+
+- `SECURITY DEFINER` 이라, 방문자에게 **`notice`/`tender` 전체 UPDATE** 를 열지 않아도 조회수만 올릴 수 있습니다.  
+- 앱은 상세 로드 시 이 RPC 를 **먼저** 호출하고, 함수가 없을 때만 예전처럼 `UPDATE` 로 시도합니다.
+
+실행 후 대시보드 **Database → Functions** 에 함수가 보이면 정상입니다.
+
+### RPC 없이 쓸 때
+
+앱이 테이블에 직접 `UPDATE` 하므로, **`anon` 에 UPDATE 허용**(§4 개발용 정책 등)이 있어야 조회수가 올라갑니다. **SELECT 만**이면 숫자는 그대로입니다.

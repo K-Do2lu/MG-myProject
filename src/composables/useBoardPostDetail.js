@@ -94,7 +94,37 @@ export function useBoardPostDetail(tableKey, idRef) {
       return
     }
 
-    post.value = mapRow(data)
+    const baseCount = Number(data.view_count) || 0
+    const idNum = typeof id === 'number' ? id : Number(id)
+    const pId = Number.isFinite(idNum) ? idNum : id
+
+    // 1) Supabase SQL로 만든 RPC 우선 (원자적 증가, anon 에 UPDATE 없이도 가능)
+    const { data: rpcViews, error: rpcError } = await supabase.rpc(
+      'increment_board_view_count',
+      { p_board: table, p_id: pId }
+    )
+
+    if (!rpcError && rpcViews != null && Number.isFinite(Number(rpcViews))) {
+      post.value = mapRow({ ...data, view_count: Number(rpcViews) })
+    } else {
+      // 2) RPC 미생성·오류 시 기존 방식 (테이블 UPDATE 필요)
+      if (import.meta.env.DEV && rpcError) {
+        console.warn('[board] increment_board_view_count RPC 실패, update 시도:', rpcError.message)
+      }
+      const { error: incError } = await supabase
+        .from(table)
+        .update({ view_count: baseCount + 1 })
+        .eq('id', id)
+
+      if (incError) {
+        if (import.meta.env.DEV) {
+          console.warn('[board] view_count 증가 실패:', incError.message)
+        }
+        post.value = mapRow(data)
+      } else {
+        post.value = mapRow({ ...data, view_count: baseCount + 1 })
+      }
+    }
     error.value = null
   }
 
